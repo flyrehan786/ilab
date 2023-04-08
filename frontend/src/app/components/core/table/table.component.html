@@ -1,0 +1,100 @@
+<div class="mt-2 mb-2" style="display:flex; justify-content: flex-start ">
+    <strong class="me-3">Filter Results </strong>
+    <span class="ms-1 me-5" *ngFor="let f of filters" style="display:flex; justify-content: space-between; cursor: pointer;">
+        <span id="{{ f }}" (click)="onFilterOptionClick(f)">
+                {{ f }}
+        </span>
+    </span>
+</div>
+<hr />
+<div class="mt-5 d-flex justify-content-between">
+    <div class="d-flex">
+        <input type="text" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
+        <label for="" class="mt-2 me-2">From:</label> <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
+        <label for="" class="mt-2 me-2">To:</label>  <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
+        <button class="btn btn-primary me-2"><i class="bi bi-funnel-fill"></i></button>
+        <button class="btn btn-secondary me-2" (click)="columns = BACKUP"><i class="bi bi-arrow-clockwise"></i></button>
+        <button class="btn btn-secondary" (click)="printTable()"><i class="bi bi-printer-fill"></i></button>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <select name="" id="" class="form-control" [(ngModel)]="itemsPerPage">
+                        <option>Select</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </td>
+                <td>records per page </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<table class="table mt-3">
+    <thead class="thead-border-top ">
+        <tr>
+            <th class="th-border-left th-border-bottom">#</th>
+            <th class="th-border-bottom" *ngFor="let item of headers">{{ item }}</th>
+            <th class="th-border-right th-border-bottom">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="columns.length < 1">
+            <td [colSpan]="headers.length + 2" class="text-center">
+                No data available in table.
+            </td>
+        </tr>
+        <tr *ngFor="let row of getPagedColumns()">
+            <td [class.border-left-active]="getStatusColumn(row.id) == 1"
+                [class.border-left-not-active]="getStatusColumn(row.id) == 'x'">
+                <input type="checkbox">
+            </td> 
+            <td *ngFor="let item of headers">{{ row[item] }}</td>
+            <td class="td-border-right">
+                <button class="btn btn-sm btn-info me-2">
+                    <i class="bi bi-info-circle"></i>
+                </button>
+                <button class="btn btn-sm btn-primary me-2">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="d-flex justify-content-between">
+    <p>
+        Showing 
+        {{ (currentPage-1)*itemsPerPage | number }} 
+        to 
+        {{ currentPage*itemsPerPage | number }} 
+        of 
+        {{ columns.length }} entries.
+    </p>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link" (click)="currentPage = 1">First</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage == 1">
+                <a class="page-link" (click)="currentPage = currentPage - 1">Previous</a>
+            </li>
+            <li class="page-item" [class.active]="i+1 == currentPage"
+                *ngFor="let page of totalPageNumbers(); let i=index">
+                <a class="page-link" (click)="currentPage = i+1">{{i+1}}</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage >= columns.length/itemsPerPage">
+                <a class="page-link" (click)="currentPage = currentPage + 1">Next</a>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage >= columns.length/itemsPerPage">
+                <a class="page-link" (click)="currentPage = columns.length/itemsPerPage">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>

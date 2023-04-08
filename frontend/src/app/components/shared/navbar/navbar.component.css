@@ -1,0 +1,12 @@
+.navbar {
+    padding-top: 5px;
+    padding-bottom: 0px;
+}
+.nav-link.active {
+    margin-left: 12px;
+    border-bottom:3px solid rgba(0, 0, 0, 0.404);
+}
+.form-control {
+    width: 320px;
+    margin-left: 20px;
+}
