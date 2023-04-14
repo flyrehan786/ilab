@@ -1,13 +1,50 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>i.lab</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
-  <app-root></app-root>
+  <div id="loader">
+    <div style="
+      padding: 5px; 
+      background-color: rgb(129, 31, 31); 
+      color: #fff; 
+      margin: auto 0;
+      text-align: center;">
+      <h3>Please wait...
+        <span style="float:right; font-size: 12px; margin-top: 12px;">ilab<strong>360</strong></span>
+      </h3>
+    </div>
+  </div>
+  <div id="app-root">
+    <app-root></app-root>
+  </div>
+  <script>
+    var appRoot = document.getElementById('app-root');
+    appRoot.style.display = 'none';
+    window.onload = function () {
+      var loader = document.getElementById('loader');
+      setTimeout(() => {
+        loader.style.display = 'none';
+        appRoot.style.display = 'initial';
+      }, 2000);
+    };
+  </script>
 </body>
+
 </html>
