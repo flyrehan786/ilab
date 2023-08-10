@@ -10,10 +10,10 @@
 <div class="mt-5 d-flex justify-content-between">
     <div class="d-flex">
         <input type="text" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
-        <label for="" class="mt-2 me-2">From:</label> <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
-        <label for="" class="mt-2 me-2">To:</label>  <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
+        <label for="" class="mt-2 me-2">From :</label> <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
+        <label for="" class="mt-2 me-2">To :</label>  <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
         <button class="btn btn-primary me-2"><i class="bi bi-funnel-fill"></i></button>
-        <button class="btn btn-warning me-2" (click)="columns = BACKUP"><i class="bi bi-arrow-clockwise"></i></button>
+        <button class="btn btn-warning me-2" (click)="rows = BACKUP"><i class="bi bi-arrow-clockwise"></i></button>
         <button class="btn btn-info" (click)="printTable()"><i class="bi bi-printer-fill"></i></button>
     </div>
     <div>
@@ -43,14 +43,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngIf="columns.length < 1">
+        <tr *ngIf="rows.length < 1">
             <td [colSpan]="headers.length + 2" class="text-center">
                 No data available in table.
             </td>
         </tr>
-        <tr *ngFor="let row of getPagedColumns()">
-            <td [class.border-left-active]="getStatusColumn(row.id) == 1"
-                [class.border-left-not-active]="getStatusColumn(row.id) == 'x'">
+        <tr *ngFor="let row of getPagedRows()">
+            <td [class.border-left-active]="getRowStatus(row.id) == 1"
+                [class.border-left-not-active]="getRowStatus(row.id) == 'x'">
                 <input type="checkbox">
             </td> 
             <td *ngFor="let item of headers">{{ row[item] }}</td>
@@ -75,7 +75,7 @@
         to 
         {{ currentPage*itemsPerPage | number }} 
         of 
-        {{ columns.length }} entries.
+        {{ rows.length }} entries.
     </p>
     <nav aria-label="...">
         <ul class="pagination justify-content-end">
@@ -89,11 +89,11 @@
                 *ngFor="let page of totalPageNumbers(); let i=index">
                 <a class="page-link" (click)="currentPage = i+1">{{i+1}}</a>
             </li>
-            <li class="page-item" [class.disabled]="currentPage >= columns.length/itemsPerPage">
+            <li class="page-item" [class.disabled]="currentPage >= rows.length/itemsPerPage">
                 <a class="page-link" (click)="currentPage = currentPage + 1">Next</a>
             </li>
-            <li class="page-item" [class.disabled]="currentPage >= columns.length/itemsPerPage">
-                <a class="page-link" (click)="currentPage = columns.length/itemsPerPage">Last</a>
+            <li class="page-item" [class.disabled]="currentPage >= rows.length/itemsPerPage">
+                <a class="page-link" (click)="currentPage = rows.length/itemsPerPage">Last</a>
             </li>
         </ul>
     </nav>

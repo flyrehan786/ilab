@@ -15,6 +15,10 @@ import { TableComponent } from './components/core/table/table.component';
 import { RouterModule } from '@angular/router';
 import { FormComponent } from './components/core/form/form.component';
 import { CommonModule } from '@angular/common';
+import { DetailsComponent } from './components/core/details/details.component';
+import { PatientsComponent } from './components/pages/patients/patients/patients.component';
+import { TestsComponent } from './components/pages/tests/tests/tests.component';
+import { DoctorsComponent } from './components/pages/doctors/doctors/doctors.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,10 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     TableComponent,
     FormComponent,
+    DetailsComponent,
+    PatientsComponent,
+    DoctorsComponent,
+    TestsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +44,11 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     CommonModule,
     RouterModule.forRoot([
+      { path: '', component: HomeComponent },
       { path: 'home', component: HomeComponent },
-      // { path: 'patients', component: PatientsComponent },
-      // { path: 'doctors', component: DoctorsComponet },
-      // { path: 'tests', component: TestsComponent },
+      { path: 'patients', component: PatientsComponent },
+      { path: 'doctors', component: DoctorsComponent },
+      { path: 'tests', component: TestsComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'auth/login', component: LoginComponent },

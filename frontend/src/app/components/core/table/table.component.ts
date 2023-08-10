@@ -1,5 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'core-table',
   templateUrl: './table.component.html',
@@ -7,31 +6,30 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 })
 export class TableComponent implements OnInit {
   /* 
-  ------------------------------
-  Header/Columns Formatting Data
-  ------------------------------
-  headers = [ heading1, heading2, heading3 ];
-    columns = [
-      { id: 1, name: 'rehanz', age: 27 },
-      { id: 2, name: 'rehany', age: 27 },
-      { id: 3, name: 'rehanx', age: 27 },
-    ]
+      ------------------------------
+      Header/Columns Formatting Data
+      ------------------------------
+      headers = [ heading1, heading2, heading3 ];
+        columns = [
+          { id: 1, name: 'rehan1', age: 27 },
+          { id: 2, name: 'rehan2', age: 27 },
+          { id: 3, name: 'rehan3', age: 27 },
+      ]
   */
   @Input() title: string = '';
   currentPage = 1;
   itemsPerPage = 10;
   @Input() headers: any[] = [];
-  @Input() columns: any[] = [];
+  @Input() rows: any[] = [];
   @Input() filters: any[] = [];
-
   BACKUP: any[] = [];
   constructor() { }
   ngOnInit(): void {
-    this.BACKUP = JSON.parse(JSON.stringify(this.columns));
+    this.BACKUP = JSON.parse(JSON.stringify(this.rows));
   }
   filter(keyword: string) {
     if (keyword.length > 0) {
-      this.columns = this.BACKUP.filter(x => {
+      this.rows = this.BACKUP.filter(x => {
         let flag = false;
         this.headers.forEach((header) => {
           const value = x[header];
@@ -42,12 +40,11 @@ export class TableComponent implements OnInit {
         return flag;
       })
     }
-    else this.columns = JSON.parse(JSON.stringify(this.BACKUP));
+    else this.rows = JSON.parse(JSON.stringify(this.BACKUP));
   }
-
   filterWithOption(keyword: string, option) {
     if (keyword.length > 0) {
-      this.columns = this.BACKUP.filter(x => {
+      this.rows = this.BACKUP.filter(x => {
         let flag = false;
           const value = x[option];
           if (value && value.toString().toLowerCase().includes(keyword.toLowerCase())) {
@@ -56,19 +53,15 @@ export class TableComponent implements OnInit {
         return flag;
       })
     }
-    else this.columns = JSON.parse(JSON.stringify(this.BACKUP));
+    else this.rows = JSON.parse(JSON.stringify(this.BACKUP));
   }
-
-  // ... working on it.
   onFilterOptionClick(option) {
     const span = document.getElementById(option);
     const that = this;
-
     span.addEventListener("click", function () {
       const input = document.createElement("input");
       input.classList.add('form-control');
       input.value = (span.innerText !== option) ? span.innerText : '';
-
       const closeButton = document.createElement("button");
       closeButton.classList.add('btn');
       closeButton.classList.add('btn-sm');
@@ -78,11 +71,12 @@ export class TableComponent implements OnInit {
       span.replaceWith(input, closeButton);
       closeButton.addEventListener("click", function () {
         if (input.value !== "") {
+          span.classList.add('tag');
           span.innerText = input.value;
         } else {
+          span.classList.remove('tag');
           span.innerText = option;
         }
-
         input.replaceWith(span);
         closeButton.remove();
       });
@@ -93,23 +87,22 @@ export class TableComponent implements OnInit {
           else that.filterWithOption('', option);
         }
       });
-
       input.focus();
     });
   }
   totalPageNumbers() {
     let pageNumbers = [];
-    const num = this.columns.length / this.itemsPerPage;
+    const num = this.rows.length / this.itemsPerPage;
     for (let i = 1; i <= num; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
   }
-  getPagedColumns() {
-    return this.columns.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+  getPagedRows() {
+    return this.rows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
   }
-  getStatusColumn(id) {
-    const row = this.columns.filter(x => x.id === id);
+  getRowStatus(id) {
+    const row = this.rows.filter(x => x.id === id);
     if (row.length > 0) {
       const statusHeader = this.headers.filter(x => (x as string).toLowerCase().includes('status'));
       if (statusHeader.length > 0) {
@@ -123,12 +116,10 @@ export class TableComponent implements OnInit {
   filterDataByDate(fromDate, toDate) {
     const from = new Date(fromDate);
     const to = new Date(toDate);
-
-    const filteredData = this.columns.filter((item) => {
+    return this.rows.filter((item) => {
       const date = new Date(item['created_at']);
       return date >= from && date <= to;
     });
-    return filteredData;
   }
   printTable() {
     const popupWin = window.open('', '_blank', 'width=800,height=600');
@@ -167,7 +158,6 @@ export class TableComponent implements OnInit {
     `);
     popupWin.document.close();
     popupWin.print();
-
   }
   getHeaders() {
     let headers = `<tr><th>#</th>`;
@@ -180,9 +170,9 @@ export class TableComponent implements OnInit {
   }
   getRows() {
     let rows = ``;
-    for (let i = 0; i < this.columns.length; i++) {
+    for (let i = 0; i < this.rows.length; i++) {
       rows += `<tr><td>#</td>`;
-      const row = this.columns[i];
+      const row = this.rows[i];
       for (let j = 0; j < this.headers.length; j++) {
         const head = this.headers[j];
         rows += `<td>${row[head]}</td>`;

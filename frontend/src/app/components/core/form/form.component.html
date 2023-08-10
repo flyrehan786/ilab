@@ -1,18 +1,60 @@
+<h1>{{ title }}</h1>
 <hr />
 <form [formGroup]="form" (ngSubmit)="submit(form)">
-  <div class="form-group" *ngFor="let c of config">
-    <label for="{{ c.key }}">{{ c.key |  titlecase }}</label>
-    <input type="text" formControlName="{{ c.key }}" id="{{ c.key }}"
-      [class.input-error]="form.get(c.key).touched && form.get(c.key).invalid" class="form-control" />
-    <div *ngIf="form.get(c.key).touched && form.get(c.key).invalid">
-      <div *ngFor="let v of c.validators">
-        <div class="mt-2 alert alert-danger" *ngIf="form.get(c.key).errors.required && (v.key === 'required')">{{ v.message }}</div>
-        <div class="mt-2 alert alert-danger" *ngIf="form.get(c.key).errors.email && (v.key === 'email')">{{ v.message }}</div>
-        <div class="mt-2 alert alert-danger" *ngIf="form.get(c.key).errors.minlength && (v.key === 'minlength' || v.key === 'minLength')">{{ v.message }}</div>
-        <div class="mt-2 alert alert-danger" *ngIf="form.get(c.key).errors.maxlength && (v.key === 'maxlength' || v.key === 'maxLength')">{{ v.message }}</div>
-        <div class="mt-2 alert alert-danger" *ngIf="form.get(c.key).errors.pattern && (v.key === 'pattern')">{{ v.message }}</div>
+  <div class="row">
+    <div class="form-group {{ control.bsCols }}" *ngFor="let control of config">
+      <label for="{{ control.key }}">{{ control.key | titlecase }}</label>
+      <ng-container *ngIf="control.visible == true">
+        <ng-container [ngSwitch]="control.type">
+          <input *ngSwitchCase="'text'" [type]="control.type" [formControlName]="control.key"
+            [class.input-error]="form.get(control.key).touched && form.get(control.key).invalid" class="form-control" />
+          <input *ngSwitchCase="'password'" [type]="control.type" [formControlName]="control.key"
+            [class.input-error]="form.get(control.key).touched && form.get(control.key).invalid" class="form-control" />
+          <select *ngSwitchCase="'dropdown'" class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option *ngFor="let option of control.options" [value]="option.key">{{ option.value }}</option>
+          </select>
+          <textarea *ngSwitchCase="'textarea'" cols="30" rows="10" formControlName="{{ control.key }}"
+            id="{{ control.key }}" [class.input-error]="form.get(control.key).touched && form.get(control.key).invalid"
+            class="form-control">
+          </textarea>
+          <div *ngSwitchCase="'checkbox'">
+            <div *ngFor="let option of control.options">
+              <label>
+                <input type="checkbox" [formControlName]="control.key" [value]="option.value">
+                {{ option.key }}
+              </label>
+            </div>
+          </div>
+          <div *ngSwitchCase="'radio'">
+            <div *ngFor="let option of control.options">
+              <label>
+                <input type="radio" [value]="option.value" [formControlName]="control.key">{{ option.key }}
+              </label>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <div *ngIf="form.get(control.key).touched && form.get(control.key).invalid">
+        <div *ngFor="let v of control.validators">
+          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.required && (v.key === 'required')">{{
+            v.message }}</div>
+          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.email && (v.key === 'email')">{{
+            v.message }}
+          </div>
+          <div class="mt-2 alert alert-danger"
+            *ngIf="form.get(control.key).errors.minlength && (v.key === 'minlength' || v.key === 'minLength')">{{
+            v.message }}
+          </div>
+          <div class="mt-2 alert alert-danger"
+            *ngIf="form.get(control.key).errors.maxlength && (v.key === 'maxlength' || v.key === 'maxLength')">{{
+            v.message }}
+          </div>
+          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.pattern && (v.key === 'pattern')">{{
+            v.message }}</div>
+        </div>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary mt-2" [disabled]="form.invalid">Submit</button>
+  <button type="submit" class="btn btn-primary mt-2" [disabled]="form?.invalid">Submit</button>
 </form>
