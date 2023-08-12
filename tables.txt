@@ -1,0 +1,75 @@
+
+Designing a complete database schema for a Laboratory Management System involves defining the tables, their attributes, and the relationships between them. Below is a simplified example of such a design:
+
+Tables:
+Test:
+
+TestID (Primary Key)
+TestName
+Description
+ReferenceRange
+SampleType
+TestCost
+TestDuration
+EquipmentUsed
+DepartmentID (Foreign Key referencing Department table)
+PreparationInstructions
+CPTCode
+TestCategoryID (Foreign Key referencing TestCategory table)
+TestComplexityID (Foreign Key referencing TestComplexity table)
+ReportingTime
+TestResults:
+
+ResultID (Primary Key)
+TestID (Foreign Key referencing Test table)
+PatientID (Foreign Key referencing Patient table)
+TestDate
+TestValue
+UnitOfMeasurement
+Interpretation
+ResultStatus
+ReportingTechnicianID (Foreign Key referencing Technician table)
+ReportingDate
+ReferenceComment
+Patient:
+
+PatientID (Primary Key)
+FirstName
+LastName
+DateOfBirth
+Gender
+Address
+Phone
+Email
+MedicalHistory
+Allergies
+InsuranceInformation
+Doctor:
+
+DoctorID (Primary Key)
+DoctorName
+Specialty
+ClinicOrHospital
+LicenseNumber
+Address
+Phone
+Email
+Department:
+
+DepartmentID (Primary Key)
+DepartmentName
+Description
+TestCategory:
+
+TestCategoryID (Primary Key)
+CategoryName
+TestComplexity:
+
+TestComplexityID (Primary Key)
+ComplexityLevel
+Technician:
+
+TechnicianID (Primary Key)
+TechnicianName
+DepartmentID (Foreign Key referencing Department table)
+ContactInformation
