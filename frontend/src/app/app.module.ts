@@ -11,14 +11,15 @@ import { LoginComponent } from './components/pages/auth/login/login.component';
 import { RegisterComponent } from './components/pages/auth/register/register.component';
 import { UsersComponent } from './components/pages/auth/users/users.component';
 import { HomeComponent } from './components/pages/home/home.component';
-import { TableComponent } from './components/core/table/table.component';
 import { RouterModule } from '@angular/router';
-import { FormComponent } from './components/core/form/form.component';
 import { CommonModule } from '@angular/common';
-import { DetailsComponent } from './components/core/details/details.component';
 import { PatientsComponent } from './components/pages/patients/patients/patients.component';
 import { TestsComponent } from './components/pages/tests/tests/tests.component';
 import { DoctorsComponent } from './components/pages/doctors/doctors/doctors.component';
+import { TableComponent } from './components/core/components/table/table.component';
+import { DetailsComponent } from './components/core/components/details/details.component';
+import { FormComponent } from './components/core/components/form/form.component';
+import { ToastComponent } from './components/core/components/toast/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DoctorsComponent } from './components/pages/doctors/doctors/doctors.com
     DetailsComponent,
     PatientsComponent,
     DoctorsComponent,
-    TestsComponent
+    TestsComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
