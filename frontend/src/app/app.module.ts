@@ -20,6 +20,10 @@ import { TableComponent } from './components/core/components/table/table.compone
 import { DetailsComponent } from './components/core/components/details/details.component';
 import { FormComponent } from './components/core/components/form/form.component';
 import { ToastComponent } from './components/core/components/toast/toast/toast.component';
+import { PatientFormComponent } from './components/pages/patients/patient-form/patient-form/patient-form.component';
+import { PatientDetailsComponent } from './components/pages/patients/patient-details/patient-details/patient-details.component';
+import { DoctorDetailsComponent } from './components/pages/doctors/doctor-details/doctor-details/doctor-details.component';
+import { DoctorFormComponent } from './components/pages/doctors/doctor-form/doctor-form/doctor-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { ToastComponent } from './components/core/components/toast/toast/toast.c
     PatientsComponent,
     DoctorsComponent,
     TestsComponent,
-    ToastComponent
+    ToastComponent,
+    PatientFormComponent,
+    PatientDetailsComponent,
+    DoctorDetailsComponent,
+    DoctorFormComponent
   ],
   imports: [
     BrowserModule,
