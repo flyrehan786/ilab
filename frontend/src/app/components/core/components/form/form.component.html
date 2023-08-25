@@ -1,9 +1,16 @@
-<h1>{{ title }}</h1>
+<h1 class="mt-4 mb-4">{{ title }}</h1>
 <hr />
 <form [formGroup]="form" (ngSubmit)="submit(form)">
-  <div class="row">
-    <div class="form-group {{ control.bsCols }}" *ngFor="let control of config">
-      <label for="{{ control.key }}">{{ control.key | titlecase }}</label>
+  <section class="row">
+    <section class="form-group {{ control.bsCols }}" *ngFor="let control of config">
+      <label *ngIf="control.visible == true" for="{{ control.key }}">
+        <span *ngIf="!control.label">
+          {{ control.key | titlecase }}
+        </span>
+        <span *ngIf="control.label">
+          {{ control.label }}
+        </span>
+      </label>
       <ng-container *ngIf="control.visible == true">
         <ng-container [ngSwitch]="control.type">
           <input *ngSwitchCase="'text'" [type]="control.type" [formControlName]="control.key"
@@ -35,26 +42,31 @@
           </div>
         </ng-container>
       </ng-container>
-      <div *ngIf="form.get(control.key).touched && form.get(control.key).invalid">
-        <div *ngFor="let v of control.validators">
-          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.required && (v.key === 'required')">{{
-            v.message }}</div>
-          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.email && (v.key === 'email')">{{
+      <section *ngIf="form.get(control.key).touched && form.get(control.key).invalid">
+        <section *ngFor="let v of control.validators">
+          <section class="mt-2 alert alert-danger"
+            *ngIf="form.get(control.key).errors.required && (v.key === 'required')">{{
             v.message }}
-          </div>
-          <div class="mt-2 alert alert-danger"
+          </section>
+          <section class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.email && (v.key === 'email')">{{
+            v.message }}
+          </section>
+          <section class="mt-2 alert alert-danger"
             *ngIf="form.get(control.key).errors.minlength && (v.key === 'minlength' || v.key === 'minLength')">{{
             v.message }}
-          </div>
-          <div class="mt-2 alert alert-danger"
+          </section>
+          <section class="mt-2 alert alert-danger"
             *ngIf="form.get(control.key).errors.maxlength && (v.key === 'maxlength' || v.key === 'maxLength')">{{
             v.message }}
-          </div>
-          <div class="mt-2 alert alert-danger" *ngIf="form.get(control.key).errors.pattern && (v.key === 'pattern')">{{
-            v.message }}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-primary mt-2" [disabled]="form?.invalid">Submit</button>
+          </section>
+          <section class="mt-2 alert alert-danger"
+            *ngIf="form.get(control.key).errors.pattern && (v.key === 'pattern')">{{
+            v.message }}
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>
+  <hr />
+  <button type="submit" class="btn btn-primary mt-2 mb-4" [disabled]="form?.invalid">Submit</button>
 </form>

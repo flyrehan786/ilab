@@ -1,19 +1,22 @@
-<div class="mt-2 mb-2" style="display:flex; justify-content: flex-start ">
+<section class="mt-2 mb-2" style="display:flex; justify-content: flex-start ">
     <strong class="me-3">Filter Results </strong>
-    <span class="ms-1 me-5" *ngFor="let f of filters" style="display:flex; justify-content: space-between; cursor: pointer;">
+    <span class="ms-1 me-5 filters" *ngFor="let f of filters"
+        style="display:flex; justify-content: space-between; cursor: pointer;">
         <span id="{{ f }}" (click)="onFilterOptionClick(f)">
-                {{ f }}
+            {{ f }}
         </span>
     </span>
-</div>
+</section>
 <hr />
-<div class="mt-5 d-flex justify-content-between">
+<section class="mt-5 d-flex justify-content-between">
     <div class="d-flex">
         <input type="text" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
-        <label for="" class="mt-2 me-2">From :</label> <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
-        <label for="" class="mt-2 me-2">To :</label>  <input type="date" placeholder="Find..." class="form-control me-2" (keyup)="filter($event.target.value)">
-        <button class="btn btn-primary me-2"><i class="bi bi-funnel-fill"></i></button>
-        <button class="btn btn-warning me-2" (click)="rows = BACKUP"><i class="bi bi-arrow-clockwise"></i></button>
+        <label for="" class="mt-2 me-2">From:</label> <input id="from_date" type="date" placeholder="Find..."
+            class="form-control me-2" (keyup)="filter($event.target.value)">
+        <label for="" class="mt-2 me-2">To:</label> <input id="to_date" type="date" placeholder="Find..."
+            class="form-control me-2" (keyup)="filter($event.target.value)">
+        <button class="btn btn-primary me-2" (click)="filterDataByDate()"><i class="bi bi-funnel-fill"></i></button>
+        <button class="btn btn-warning me-2" (click)="reset()"><i class="bi bi-arrow-clockwise"></i></button>
         <button class="btn btn-info" (click)="printTable()"><i class="bi bi-printer-fill"></i></button>
     </div>
     <div>
@@ -33,50 +36,56 @@
             </tr>
         </table>
     </div>
-</div>
-<table class="table mt-3">
-    <thead class="thead-border-top ">
-        <tr>
-            <th class="th-border-left th-border-bottom">#</th>
-            <th class="th-border-bottom" *ngFor="let item of headers">{{ item }}</th>
-            <th class="th-border-right th-border-bottom">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngIf="rows.length < 1">
-            <td [colSpan]="headers.length + 2" class="text-center">
-                No data available in table.
-            </td>
-        </tr>
-        <tr *ngFor="let row of getPagedRows()">
-            <td [class.border-left-active]="getRowStatus(row.id) == 1"
-                [class.border-left-not-active]="getRowStatus(row.id) == 'x'">
-                <input type="checkbox">
-            </td> 
-            <td *ngFor="let item of headers">{{ row[item] }}</td>
-            <td class="td-border-right">
-                <button class="btn btn-sm btn-info me-2">
-                    <i class="bi bi-info-circle"></i>
-                </button>
-                <button class="btn btn-sm btn-primary me-2">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-danger">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div class="d-flex justify-content-between">
-    <p>
-        Showing 
-        {{ (currentPage-1)*itemsPerPage | number }} 
-        to 
-        {{ currentPage*itemsPerPage | number }} 
-        of 
-        {{ rows.length }} entries.
-    </p>
+</section>
+<section>
+    <table class="table mt-3">
+        <thead class="thead-border-top ">
+            <tr>
+                <th class="th-border-left th-border-bottom">#</th>
+                <th class="th-border-bottom" *ngFor="let item of headers">{{ item }}</th>
+                <th class="th-border-right th-border-bottom">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="rows?.length < 1">
+                <td [colSpan]="headers?.length + 2" class="text-center">
+                    No data available in table.
+                </td>
+            </tr>
+            <tr *ngFor="let row of getPagedRows()">
+                <td [class.border-left-active]="getRowStatus(row.id) == 1"
+                    [class.border-left-not-active]="getRowStatus(row.id) == 'x'">
+                    <input type="checkbox">
+                </td>
+                <td *ngFor="let item of headers">
+                    <p>{{ row[item] }}</p>
+                </td>
+                <td class="td-border-right">
+                    <button class="btn btn-sm btn-info me-2">
+                        <i class="bi bi-info-circle"></i>
+                    </button>
+                    <button class="btn btn-sm btn-primary me-2">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section class="d-flex justify-content-between">
+    <section>
+        <p>
+            Showing
+            {{ (currentPage-1)*itemsPerPage | number }}
+            to
+            {{ currentPage*itemsPerPage | number }}
+            of
+            {{ rows?.length }} entries.
+        </p>
+    </section>
     <nav aria-label="...">
         <ul class="pagination justify-content-end">
             <li class="page-item" [class.disabled]="currentPage == 1">
@@ -89,12 +98,12 @@
                 *ngFor="let page of totalPageNumbers(); let i=index">
                 <a class="page-link" (click)="currentPage = i+1">{{i+1}}</a>
             </li>
-            <li class="page-item" [class.disabled]="currentPage >= rows.length/itemsPerPage">
+            <li class="page-item" [class.disabled]="currentPage >= rows?.length/itemsPerPage">
                 <a class="page-link" (click)="currentPage = currentPage + 1">Next</a>
             </li>
-            <li class="page-item" [class.disabled]="currentPage >= rows.length/itemsPerPage">
+            <li class="page-item" [class.disabled]="currentPage >= rows?.length/itemsPerPage">
                 <a class="page-link" (click)="currentPage = rows.length/itemsPerPage">Last</a>
             </li>
         </ul>
     </nav>
-</div>
+</section>

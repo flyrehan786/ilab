@@ -18,6 +18,7 @@ export interface IControl {
   defaultValue: string;
   validators: IValidators[];
   visible: boolean;
+  label?: string;
   options?: IDropdownOption[];
   option?: ICheckboxOption;
   bsCols?: string; 

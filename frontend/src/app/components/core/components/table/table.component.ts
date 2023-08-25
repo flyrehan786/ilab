@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'core-table',
   templateUrl: './table.component.html',
@@ -22,12 +22,13 @@ export class TableComponent implements OnInit {
   @Input() headers: any[] = [];
   @Input() rows: any[] = [];
   @Input() filters: any[] = [];
-  BACKUP: any[] = [];
+  @Input() BACKUP: any[] = [];
   constructor() { }
   ngOnInit(): void {
-    this.BACKUP = JSON.parse(JSON.stringify(this.rows));
   }
   filter(keyword: string) {
+    this.currentPage = 1;
+    this.rows = JSON.parse(JSON.stringify(this.rows));
     if (keyword.length > 0) {
       this.rows = this.BACKUP.filter(x => {
         let flag = false;
@@ -61,12 +62,16 @@ export class TableComponent implements OnInit {
     span.addEventListener("click", function () {
       const input = document.createElement("input");
       input.classList.add('form-control');
+      input.style.padding = '4px 9px';
+      input.style.borderRadius = '0px';
+      input.style.marginRight = '-3px';
       input.value = (span.innerText !== option) ? span.innerText : '';
       const closeButton = document.createElement("button");
       closeButton.classList.add('btn');
       closeButton.classList.add('btn-sm');
       closeButton.classList.add('btn-primary');
       closeButton.classList.add('ms-1');
+      closeButton.style.borderRadius = '0px';
       closeButton.innerText = "x";
       span.replaceWith(input, closeButton);
       closeButton.addEventListener("click", function () {
@@ -92,17 +97,17 @@ export class TableComponent implements OnInit {
   }
   totalPageNumbers() {
     let pageNumbers = [];
-    const num = this.rows.length / this.itemsPerPage;
+    const num = this.rows?.length / this.itemsPerPage;
     for (let i = 1; i <= num; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
   }
   getPagedRows() {
-    return this.rows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
+    return this.rows?.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)
   }
   getRowStatus(id) {
-    const row = this.rows.filter(x => x.id === id);
+    const row = this.rows?.filter(x => x.id === id);
     if (row.length > 0) {
       const statusHeader = this.headers.filter(x => (x as string).toLowerCase().includes('status'));
       if (statusHeader.length > 0) {
@@ -113,13 +118,23 @@ export class TableComponent implements OnInit {
       else return 'x';
     } else return 'x'
   }
-  filterDataByDate(fromDate, toDate) {
-    const from = new Date(fromDate);
-    const to = new Date(toDate);
-    return this.rows.filter((item) => {
-      const date = new Date(item['created_at']);
-      return date >= from && date <= to;
-    });
+  reset() { 
+    this.rows = JSON.parse(JSON.stringify(this.BACKUP));
+   }
+  filterDataByDate() {
+    let fromDateControl = document.getElementById('from_date') ;
+    let toDateControl = document.getElementById('to_date');
+    const fromDate = (fromDateControl as any).value;
+    const toDate = (toDateControl as any).value;
+
+    if (fromDate && toDate) {
+      const from = new Date(fromDate).toLocaleDateString();
+      const to = new Date(toDate).toLocaleDateString();
+      this.rows =  this.BACKUP.filter((item) => {
+        const date = new Date(item['created_at']).toLocaleDateString();
+        return date >= from && date <= to;
+      });
+    } else console.log('No from & to date selected!');
   }
   printTable() {
     const popupWin = window.open('', '_blank', 'width=800,height=600');
@@ -170,7 +185,7 @@ export class TableComponent implements OnInit {
   }
   getRows() {
     let rows = ``;
-    for (let i = 0; i < this.rows.length; i++) {
+    for (let i = 0; i < this.rows?.length; i++) {
       rows += `<tr><td>#</td>`;
       const row = this.rows[i];
       for (let j = 0; j < this.headers.length; j++) {
@@ -180,5 +195,6 @@ export class TableComponent implements OnInit {
       rows += `<tr />`;
     }
     return rows;
-  }
+  } 
+
 }

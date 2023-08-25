@@ -1,12 +1,14 @@
 <span class="btn btn-link">Back to List</span>
 <hr />
-<p *ngFor="let o of obj | keyvalue">
-    <span class="ms-3">
-        <strong>
-            {{ o.key }} : 
-        </strong>
-    </span>
-    <span>
-        {{ o.value }}
-    </span>
-</p>
+<section>
+    <p *ngFor="let o of obj | keyvalue">
+        <span class="ms-3">
+            <strong>
+                {{ o.key }} :
+            </strong>
+        </span>
+        <span>
+            {{ o.value }}
+        </span>
+    </p>
+</section>

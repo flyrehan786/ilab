@@ -3,11 +3,11 @@ table {
 }
 
 .border-left-active {
-    border-left: 5px solid green;
+    border-left: 2px solid rgb(20, 177, 20);
 }
 
 .border-left-not-active {
-    border-left: 5px solid red;
+    border-left: 2px solid red;
 }
 
 .thead-border-top {
@@ -52,4 +52,8 @@ table {
     background-color: #0077cc;
     color: #fff;
     border-color: #0077cc;
+}
+
+:host ng::deep .form-control .filters {
+    padding: 0px;
 }

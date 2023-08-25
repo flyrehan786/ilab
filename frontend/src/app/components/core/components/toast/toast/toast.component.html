@@ -1,14 +1,12 @@
-<div class=" mt-4  position-fixed top-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast hide bg-success" 
-    [class.bg-success]="_success" 
-    [class.bg-danger]="_error"
-    [class.bg-warning]="_warning" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+<section class=" mt-4  position-fixed top-0 end-0 p-3" style="z-index: 11">
+    <section id="liveToast" class="toast hide bg-success" [class.bg-success]="_success" [class.bg-danger]="_error"
+        [class.bg-warning]="_warning" role="alert" aria-live="assertive" aria-atomic="true">
+        <section class="toast-header">
             <strong class="me-auto" [class.text-success]="_success" [class.text-danger]="_error"
                 [class.text-warning]="_warning">Message</strong>
             <!-- <small>11 mins ago</small> -->
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body"> {{ _message }} </div>
-        </div>
-    </div>
+        </section>
+        <section class="toast-body"> {{ _message }} </section>
+    </section>
+</section>
