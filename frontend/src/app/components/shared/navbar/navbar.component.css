@@ -1,6 +1,7 @@
 .navbar {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    background-color: #c1260a !important;
 }
 .nav-link.active {
     margin-left: 12px;
