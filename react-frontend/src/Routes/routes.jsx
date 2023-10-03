@@ -1,9 +1,7 @@
-
 import React from 'react';
-const Login = React.lazy(() => import('src/Pages/Login/Login.jsx'));
-const Signin = React.lazy(() => import('src/Pages/Signin/Signin.jsx'));
-const Home = React.lazy(() => import('src/Pages/Home/Home.jsx'));
-
+const Login = React.lazy(() => import('../Pages/Login/Login'));
+const Signin = React.lazy(() => import('../Pages/Signin/Signin'));
+const Home = React.lazy(() => import('../Pages/Home/Home'));
 
 export const routes = [
   {
