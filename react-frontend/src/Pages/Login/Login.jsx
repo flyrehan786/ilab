@@ -1,7 +1,12 @@
 import { Button, Divider, Form, Input } from 'antd';
 import JiraLogo from '../../assets/icon/JiraLogo';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  // Navigate Hook.....
+  const navigate = useNavigate();
+
+  // onFinish Handler
   const finishHandler = (values) => {
     console.log('Login Form Data', values);
   };
@@ -24,7 +29,10 @@ const Login = () => {
         <Divider className='bg-[#D8D5CD] mt-8' />
         <div className='flex justify-center text-theme-color tracking-wide'>
           <p className='text-[15px] text-text-gray'>
-            Create an account ? <span className='cursor-pointer font-medium'>Sigup now</span>
+            Create an account ?{' '}
+            <span onClick={() => navigate('/signin')} className='cursor-pointer font-medium'>
+              Sigup now
+            </span>
           </p>
         </div>
       </Form>

@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { routes } from './routes';
+import { Suspense } from 'react';
+import { Spin } from 'antd';
 
 const AppRoutes = () => {
   //================================
@@ -19,11 +21,13 @@ const AppRoutes = () => {
   };
 
   return (
-    <Routes>
-      {routes.map((route) => (
-        <Route key={route.key} path={route.path} element={renderRoute(route, token)} />
-      ))}
-    </Routes>
+    <Suspense fallback={<Spin size='large' />}>
+      <Routes>
+        {routes.map((route) => (
+          <Route key={route.key} path={route.path} element={renderRoute(route, token)} />
+        ))}
+      </Routes>
+    </Suspense>
   );
 };
 
