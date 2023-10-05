@@ -34,7 +34,7 @@ router.post("/register", async (req, res) => {
 
   const queryResult = await findUser(req.body.username);
   if (queryResult) return res.status(400).send("User already registered.");
-  const encryptPassword = await encryptedPassword(req.body.username);
+  const encryptPassword = await encryptedPassword(req.body.password);
 
   const newUser = {
     id: null,
