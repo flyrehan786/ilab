@@ -10,6 +10,8 @@ router.post('/', async (req, res) => {
   let user = await findUsername(req.body.username);
   if (!user) return res.status(400).send('1. Invalid username or password.');
   const validPassword = await bcrypt.compare(req.body.password, user.password);
+  console.log('Orignal Password: ' + user.password);
+  console.log('Requested Password: ' + req.body.password);
   if (!validPassword) return res.status(400).send('2. Invalid username or password.');
   const token = generateAuthToken(user);
   res.send({
@@ -19,8 +21,8 @@ router.post('/', async (req, res) => {
 
 function validate(req) {
   const schema = {
-    username: Joi.string().min(5).max(255).required(),
-    password: Joi.string().min(5).max(255).required()
+    username: Joi.string().min(2).max(255).required(),
+    password: Joi.string().min(2).max(1024).required()
   };
   return Joi.validate(req, schema);
 }
