@@ -6,22 +6,13 @@ const router = express.Router();
 
 router.get("", async (req, res) => {
   const users = await findAll();
-  const filteredList = users.map(obj => {
-    const { password, created_by, updated_by, ...rest } = obj;
-    return rest;
-  });
-  const keys = Object.keys(filteredList[0]);
-  filteredList.filter(x => {
+  users.forEach(x => {
     x.created_at = new Date(x.created_at).toLocaleString();
     x.updated_at = new Date(x.updated_at).toLocaleString();
     if (+x.is_admin === 1) x.is_admin = 'Yes';
     else x.is_admin = 'No';
   })
-  res.send({
-    rows: filteredList,
-    headers: keys,
-    filters: [keys[1], keys[2]]
-  });
+  res.send(users);
 });
 
 router.get("/:id", async (req, res) => {
