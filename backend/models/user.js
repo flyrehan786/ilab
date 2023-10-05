@@ -46,7 +46,6 @@ async function findAll() {
 }
 
 async function findUsername(username) {
-  console.log('user: ' + username);
   return new Promise((resolve, reject) => {
     db.execute(`SELECT * FROM users WHERE username=?`, [username], (err, result) => {
       console.log(result);
