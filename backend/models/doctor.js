@@ -34,7 +34,7 @@ function validateDoctor(doctor) {
 
 async function findAll() {
     return new Promise((resolve, reject) => {
-        db.execute((`SELECT * FROM patients`), [], (err, result) => {
+        db.execute((`SELECT * FROM doctors`), [], (err, result) => {
             if (err) reject(err);
             if (result.length > 0) resolve(result);
             else resolve([]);
@@ -42,11 +42,20 @@ async function findAll() {
     })
 }
 
-async function saveDoctor(newUser) {
+async function saveDoctor(newDoctor) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO users VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, [newUser.first_name, newUser.last_name, newUser.email, newUser.username, newUser.password, newUser.is_admin, newUser.status], (err, result) => {
+        db.execute(`INSERT INTO doctors VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, 
+            [
+                newDoctor.first_name, 
+                newDoctor.last_name, 
+                newDoctor.email, 
+                newDoctor.username, 
+                newDoctor.password, 
+                newDoctor.is_admin, 
+                newDoctor.status
+            ], (err, result) => {
             if (err) reject(err);
-            db.execute(`SELECT id FROM users WHERE id = LAST_INSERT_ID();`, (err, result) => {
+            db.execute(`SELECT id FROM doctors WHERE id = LAST_INSERT_ID();`, (err, result) => {
                 if (err) reject(err);
                 if (result.length > 0) resolve(result[0].id);
                 else resolve(null);
@@ -57,7 +66,10 @@ async function saveDoctor(newUser) {
 
 async function findDoctor(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM users WHERE id=?`, [id], (err, result) => {
+        db.execute(`SELECT * FROM doctors WHERE id=?`, 
+            [
+                id
+            ], (err, result) => {
             if (err) reject(err);
             if (result.length > 0) resolve(result[0]);
             else resolve(null);
@@ -65,15 +77,14 @@ async function findDoctor(id) {
     })
 }
 
-async function updateDoctor(id, updatedUser) { }
+async function updateDoctor(id, updatedDoctor) { }
 
 async function deleteDoctor(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM users WHERE id=?`, [id], (err, result) => {
-            console.log(result);
+        db.execute(`SELECT * FROM doctors WHERE id=?`, [id], (err, result) => {
             if (result[0].is_admin == '1') resolve(false);
             else {
-                db.execute(`DELETE FROM users WHERE id=?`, [id], (err, result) => {
+                db.execute(`DELETE FROM doctors WHERE id=?`, [id], (err, result) => {
                     if (err) reject(err);
                     if (result.affectedRows == 1) resolve(true);
                     else resolve(false);

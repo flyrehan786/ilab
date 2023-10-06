@@ -42,9 +42,18 @@ async function findAll() {
   })
 }
 
-async function savePatient(newUser) {
+async function savePatient(newPatient) {
   return new Promise((resolve, reject) => {
-    db.execute(`INSERT INTO users VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, [ newUser.first_name, newUser.last_name, newUser.email, newUser.username, newUser.password, newUser.is_admin, newUser.status ], (err, result) => {
+    db.execute(`INSERT INTO patients VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, 
+      [ 
+        newPatient.first_name, 
+        newPatient.last_name, 
+        newPatient.email, 
+        newPatient.username, 
+        newPatient.password, 
+        newPatient.is_admin, 
+        newPatient.status 
+      ], (err, result) => {
       if (err) reject(err);
       db.execute(`SELECT id FROM users WHERE id = LAST_INSERT_ID();`, (err, result) => {
         if (err) reject(err);
@@ -57,7 +66,10 @@ async function savePatient(newUser) {
 
 async function findPatient(id) {
   return new Promise((resolve, reject) => {
-    db.execute(`SELECT * FROM users WHERE id=?`, [id], (err, result) => {
+    db.execute(`SELECT * FROM patients WHERE id=?`, 
+      [
+        id
+      ], (err, result) => {
       if (err) reject(err);
       if (result.length > 0) resolve(result[0]);
       else resolve(null);
@@ -65,15 +77,15 @@ async function findPatient(id) {
   })
 }
 
-async function updatePatient(id, updatedUser) {}
+async function updatePatient(id, updatedPatient) {}
 
 async function deletePatient(id) {
   return new Promise((resolve, reject) => {
-    db.execute(`SELECT * FROM users WHERE id=?`, [id], (err, result) => {
+    db.execute(`SELECT * FROM patients WHERE id=?`, [id], (err, result) => {
       console.log(result);
       if(result[0].is_admin == '1') resolve(false);
       else {
-        db.execute(`DELETE FROM users WHERE id=?`, [id], (err, result) => {
+        db.execute(`DELETE FROM patients WHERE id=?`, [id], (err, result) => {
           if (err) reject(err);
           if (result.affectedRows == 1) resolve(true);
           else resolve(false);
