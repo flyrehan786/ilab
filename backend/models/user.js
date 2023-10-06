@@ -46,7 +46,6 @@ async function findAll() {
 }
 
 async function findUsername(username) {
-  console.log('user: ' + username);
   return new Promise((resolve, reject) => {
     db.execute(`SELECT * FROM users WHERE username=?`, [username], (err, result) => {
       console.log(result);
@@ -93,6 +92,16 @@ async function activateUser(id) {
 async function findUser(id) {
   return new Promise((resolve, reject) => {
     db.execute(`SELECT * FROM users WHERE id=?`, [id], (err, result) => {
+      if (err) reject(err);
+      if (result.length > 0) resolve(result[0]);
+      else resolve(null);
+    });
+  })
+}
+
+async function findUserByUsername(username) {
+  return new Promise((resolve, reject) => {
+    db.execute(`SELECT * FROM users WHERE username=?`, [username], (err, result) => {
       if (err) reject(err);
       if (result.length > 0) resolve(result[0]);
       else resolve(null);
@@ -152,3 +161,4 @@ exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.deActivateUser = deActivateUser;
 exports.activateUser = activateUser;
+exports.findUserByUsername = findUserByUsername;

@@ -1,6 +1,6 @@
 // const auth = require("../middleware/auth");
 // const _ = require("lodash");
-const { validate, findUser, encryptedPassword, saveUser, findAll, deActivateUser, activateUser, deleteUser } = require("../models/user");
+const { validate, findUser, encryptedPassword, saveUser, findAll, deActivateUser, activateUser, deleteUser, findUserByUsername } = require("../models/user");
 const express = require("express");
 const router = express.Router();
 
@@ -32,9 +32,9 @@ router.post("/register", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const queryResult = await findUser(req.body.username);
+  const queryResult = await findUserByUsername(req.body.username);
   if (queryResult) return res.status(400).send("User already registered.");
-  const encryptPassword = await encryptedPassword(req.body.username);
+  const encryptPassword = await encryptedPassword(req.body.password);
 
   const newUser = {
     id: null,
