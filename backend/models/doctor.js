@@ -44,40 +44,65 @@ async function findAll() {
 
 async function saveDoctor(newDoctor) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO doctors VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, 
+        db.execute(`INSERT INTO doctors VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`,
             [
-                newDoctor.first_name, 
-                newDoctor.last_name, 
-                newDoctor.email, 
-                newDoctor.username, 
-                newDoctor.password, 
-                newDoctor.is_admin, 
+                newDoctor.first_name,
+                newDoctor.last_name,
+                newDoctor.email,
+                newDoctor.username,
+                newDoctor.password,
+                newDoctor.is_admin,
                 newDoctor.status
             ], (err, result) => {
-            if (err) reject(err);
-            db.execute(`SELECT id FROM doctors WHERE id = LAST_INSERT_ID();`, (err, result) => {
                 if (err) reject(err);
-                if (result.length > 0) resolve(result[0].id);
-                else resolve(null);
-            })
-        });
+                db.execute(`SELECT id FROM doctors WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result[0].id);
+                    else resolve(null);
+                })
+            });
     })
 }
 
 async function findDoctor(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM doctors WHERE id=?`, 
+        db.execute(`SELECT * FROM doctors WHERE id=?`,
             [
                 id
             ], (err, result) => {
-            if (err) reject(err);
-            if (result.length > 0) resolve(result[0]);
-            else resolve(null);
-        });
+                if (err) reject(err);
+                if (result.length > 0) resolve(result[0]);
+                else resolve(null);
+            });
     })
 }
 
-async function updateDoctor(id, updatedDoctor) { }
+async function updateDoctor(id, updatedDoctor) {
+    return new Promise((resolve, reject) => {
+        db.execute('Update students SET registration_no=?,first_name=?, last_name=?, gender=?, cnic=?, age=?, father_name=?, father_cnic=?, post_office=?, tehsil=?, district=? WHERE id=?;',
+            [
+                updatedDoctor.registration_no,
+                updatedDoctor.first_name,
+                updatedDoctor.last_name,
+                updatedDoctor.gender,
+                updatedDoctor.cnic,
+                updatedDoctor.age,
+                updatedDoctor.father_name,
+                updatedDoctor.father_cnic,
+                updatedDoctor.post_office,
+                updatedDoctor.tehsil,
+                updatedDoctor.district,
+                id
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM students WHERE id = ${id};`, (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result[0]);
+                    else resolve(null);
+                })
+            })
+    })
+}
 
 async function deleteDoctor(id) {
     return new Promise((resolve, reject) => {

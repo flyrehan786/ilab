@@ -77,7 +77,32 @@ async function findPatient(id) {
   })
 }
 
-async function updatePatient(id, updatedPatient) {}
+async function updatePatient(id, updatedPatient) {
+  return new Promise((resolve, reject) => {
+    db.execute('Update students SET registration_no=?,first_name=?, last_name=?, gender=?, cnic=?, age=?, father_name=?, father_cnic=?, post_office=?, tehsil=?, district=? WHERE id=?;',
+      [
+        updatedPatient.registration_no,
+        updatedPatient.first_name,
+        updatedPatient.last_name,
+        updatedPatient.gender,
+        updatedPatient.cnic,
+        updatedPatient.age,
+        updatedPatient.father_name,
+        updatedPatient.father_cnic,
+        updatedPatient.post_office,
+        updatedPatient.tehsil,
+        updatedPatient.district,
+        id
+      ], (err, result) => {
+        if (err) reject(err);
+        db.execute(`SELECT * FROM students WHERE id = ${id};`, (err, result) => {
+          if (err) reject(err);
+          if (result.length > 0) resolve(result[0]);
+          else resolve(null);
+        })
+      })
+  })
+}
 
 async function deletePatient(id) {
   return new Promise((resolve, reject) => {
