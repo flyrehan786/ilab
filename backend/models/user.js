@@ -99,6 +99,16 @@ async function findUser(id) {
   })
 }
 
+async function findUserByUsername(username) {
+  return new Promise((resolve, reject) => {
+    db.execute(`SELECT * FROM users WHERE username=?`, [username], (err, result) => {
+      if (err) reject(err);
+      if (result.length > 0) resolve(result[0]);
+      else resolve(null);
+    });
+  })
+}
+
 async function updateUser(id, updatedUser) {}
 
 async function deleteUser(id) {
@@ -151,3 +161,4 @@ exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.deActivateUser = deActivateUser;
 exports.activateUser = activateUser;
+exports.findUserByUsername = findUserByUsername;
