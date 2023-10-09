@@ -44,18 +44,17 @@ async function findAll() {
 
 async function savePatient(newPatient) {
   return new Promise((resolve, reject) => {
-    db.execute(`INSERT INTO patients VALUES(default, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, 1)`, 
+    db.execute(`INSERT INTO patients VALUES(default, ?, ?, ?, ?, ?, ?, NOW(), NOW())`, 
       [ 
-        newPatient.first_name, 
-        newPatient.last_name, 
-        newPatient.email, 
-        newPatient.username, 
-        newPatient.password, 
-        newPatient.is_admin, 
-        newPatient.status 
+        newPatient.full_name, 
+        newPatient.date_of_birth, 
+        newPatient.gender, 
+        newPatient.contact_number, 
+        newPatient.email_address, 
+        newPatient.address, 
       ], (err, result) => {
       if (err) reject(err);
-      db.execute(`SELECT id FROM users WHERE id = LAST_INSERT_ID();`, (err, result) => {
+      db.execute(`SELECT id FROM patients WHERE id = LAST_INSERT_ID();`, (err, result) => {
         if (err) reject(err);
         if (result.length > 0) resolve(result[0].id);
         else resolve(null);
@@ -77,20 +76,34 @@ async function findPatient(id) {
   })
 }
 
-async function updatePatient(id, updatedPatient) {}
+async function updatePatient(id, updatedPatient) {
+  return new Promise((resolve, reject) => {
+    db.execute('Update patients SET full_name=?,date_of_birth=?, gender=?, contact_number=?, email_address=?, address=? WHERE id=?;',
+      [
+        updatedPatient.full_name,
+        updatedPatient.date_of_birth,
+        updatedPatient.gender,
+        updatedPatient.contact_number,
+        updatedPatient.email_address,
+        updatedPatient.address,
+        id
+      ], (err, result) => {
+        if (err) reject(err);
+        db.execute(`SELECT * FROM patients WHERE id = ${id};`, (err, result) => {
+          if (err) reject(err);
+          if (result.length > 0) resolve(result[0]);
+          else resolve(null);
+        })
+      })
+  })
+}
 
 async function deletePatient(id) {
   return new Promise((resolve, reject) => {
-    db.execute(`SELECT * FROM patients WHERE id=?`, [id], (err, result) => {
-      console.log(result);
-      if(result[0].is_admin == '1') resolve(false);
-      else {
-        db.execute(`DELETE FROM patients WHERE id=?`, [id], (err, result) => {
-          if (err) reject(err);
-          if (result.affectedRows == 1) resolve(true);
-          else resolve(false);
-        });
-      }
+    db.execute(`DELETE FROM patients WHERE id=?`, [id], (err, result) => {
+      if (err) reject(err);
+      if (result.affectedRows == 1) resolve(true);
+      else resolve(false);
     });
   })
 }
