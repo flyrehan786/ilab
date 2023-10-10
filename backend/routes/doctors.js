@@ -14,16 +14,14 @@ router.get("", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const user = await doctorModel.findDoctor(req.params.id);
-  if (!user)
+  const doctor = await doctorModel.findDoctor(req.params.id);
+  if (!doctor)
     return res
       .status(404)
       .send("The patient with the given ID was not found.");
-
-  delete user.password;
-  user.created_at = new Date(user.created_at).toLocaleString();
-  user.updated_at = new Date(user.updated_at).toLocaleString();
-  res.send(user);
+  doctor.created_at = new Date(doctor.created_at).toLocaleString();
+  doctor.updated_at = new Date(doctor.updated_at).toLocaleString();
+  res.send(doctor);
 });
 
 router.put("/:id", async (req, res) => {
