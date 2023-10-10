@@ -76,18 +76,18 @@ async function findTest(id) {
 
 async function updateTest(id, updatedTest) {
     return new Promise((resolve, reject) => {
-        db.execute('Update patients SET full_name=?,date_of_birth=?, gender=?, contact_number=?, email_address=?, address=? WHERE id=?;',
+        db.execute('Update tests SET name=?,unit=?, male_reference_rage=?, female_reference_rage=?, price=?, description=? WHERE id=?;',
             [
-                updatedTest.full_name,
-                updatedTest.date_of_birth,
-                updatedTest.gender,
-                updatedTest.contact_number,
-                updatedTest.email_address,
-                updatedTest.address,
+                updatedTest.name,
+                updatedTest.unit,
+                updatedTest.male_reference_rage,
+                updatedTest.female_reference_rage,
+                updatedTest.price,
+                updatedTest.description,
                 id
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT * FROM patients WHERE id = ${id};`, (err, result) => {
+                db.execute(`SELECT * FROM tests WHERE id = ${id};`, (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0]);
                     else resolve(null);
