@@ -52,7 +52,7 @@ async function saveTest(newTest) {
                 newTest.description,
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM patients WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                db.execute(`SELECT id FROM tests WHERE id = LAST_INSERT_ID();`, (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
@@ -98,7 +98,7 @@ async function updateTest(id, updatedTest) {
 
 async function deleteTest(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`DELETE FROM patients WHERE id=?`, [id], (err, result) => {
+        db.execute(`DELETE FROM tests WHERE id=?`, [id], (err, result) => {
             if (err) reject(err);
             if (result.affectedRows == 1) resolve(true);
             else resolve(false);
