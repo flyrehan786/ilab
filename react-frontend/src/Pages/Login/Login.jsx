@@ -8,6 +8,8 @@ import apiClient from '../../axios/axios';
 const Login = () => {
   // Navigate Hook.....
   const navigate = useNavigate();
+
+  // display message component
   const [messageApi, contextHolder] = message.useMessage();
 
   // onFinish Handler
@@ -15,7 +17,9 @@ const Login = () => {
     console.log('Login Form Data', values);
     mutate(values);
   };
-
+  //==============================================
+  // ================ Login Api ==================
+  //==============================================
   const { mutate, isLoading } = useMutation({
     mutationKey: 'sign-in-to-ilab',
     mutationFn: (data) => {
@@ -39,11 +43,11 @@ const Login = () => {
 
         //========= navigate to Home ================
         setTimeout(() => {
-          navigate('/');
-        }, 1500);
+          window.location.href = '/';
+        }, 1000);
       }
     },
-    onError: (err) => {
+    onError: () => {
       messageApi.open({
         type: 'error',
         content: 'Invalid username or password!',

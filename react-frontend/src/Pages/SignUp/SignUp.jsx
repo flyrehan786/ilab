@@ -1,27 +1,25 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../../axios/axios';
+
 import { Button, Divider, Form, Input, message } from 'antd';
 import JiraLogo from '../../assets/icon/JiraLogo';
 
 const SignUp = () => {
   // ======== Navigate Hook =============
   const navigate = useNavigate();
+
+  //========== Display Message =================
   const [messageApi, contextHolder] = message.useMessage();
 
   // =========== onFinish Handler =============
   const onFinishHandler = (values) => {
-    const data = {
-      ...values,
-      is_admin: 1,
-    };
-    console.log(data);
-    mutate({
-      ...values,
-      is_admin: '1',
-    });
+    mutate({ ...values, is_admin: '1' });
   };
 
+  // ===================================
+  // =========== SignUp Api =============
+  // ===================================
   const { mutate, isLoading } = useMutation({
     mutationKey: 'sign-up-to-ilab',
     mutationFn: (data) => {
