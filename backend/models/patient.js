@@ -14,8 +14,7 @@ function validatePatient(patient) {
     gender: Joi.string()
       .min(1)
       .max(1)
-      .required()
-      .email(),
+      .required(),
     contact_number: Joi.string()
       .min(6)
       .max(256)
