@@ -15,7 +15,7 @@ function validateTest(test) {
             .min(1)
             .max(1)
             .required(),
-        male_reference_rage: Joi.string()
+        female_reference_rage: Joi.string()
             .min(6)
             .max(256),
         price: Joi.string()
@@ -42,14 +42,14 @@ async function findAll() {
 
 async function saveTest(newTest) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO patients VALUES(default, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+        db.execute(`INSERT INTO tests VALUES(default, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
             [
-                newTest.full_name,
-                newTest.date_of_birth,
-                newTest.gender,
-                newTest.contact_number,
-                newTest.email_address,
-                newTest.address,
+                newTest.name,
+                newTest.unit,
+                newTest.male_reference_rage,
+                newTest.female_reference_rage,
+                newTest.price,
+                newTest.description,
             ], (err, result) => {
                 if (err) reject(err);
                 db.execute(`SELECT id FROM patients WHERE id = LAST_INSERT_ID();`, (err, result) => {
@@ -63,7 +63,7 @@ async function saveTest(newTest) {
 
 async function findTest(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM patients WHERE id=?`,
+        db.execute(`SELECT * FROM tests WHERE id=?`,
             [
                 id
             ], (err, result) => {
