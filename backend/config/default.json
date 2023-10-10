@@ -4,7 +4,7 @@
   "mysql": {
     "host": "localhost",
     "user": "root",
-    "password": "root",
+    "password": "javascript22750",
     "database": "lab_db"
   },
   "port": "3900",
