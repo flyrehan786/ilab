@@ -32,13 +32,12 @@ router.post("", async (req, res) => {
 
   const newPatient = {
     id: null,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    username: req.body.username,
-    password: encryptPassword,
-    is_admin: req.body.is_admin,
-    status: 1
+    full_name: req.body.full_name,
+    date_of_birth: req.body.date_of_birth,
+    gender: req.body.gender,
+    contact_number: req.body.contact_number,
+    email_address: req.body.email_address,
+    address: req.body.address,
   };
 
   const insertedId = await patientModel.savePatient(newPatient);
@@ -46,12 +45,12 @@ router.post("", async (req, res) => {
   res
     .send({
       id: newPatient.id,
-      first_name: newPatient.first_name,
-      last_name: newPatient.last_name,
-      email: newPatient.email,
-      username: newPatient.username,
-      is_admin: newPatient.is_admin,
-      status: newPatient.status
+      full_name: newPatient.full_name,
+      date_of_birth: newPatient.date_of_birth,
+      gender: newPatient.gender,
+      contact_number: newPatient.contact_number,
+      email_address: newPatient.email_address,
+      address: newPatient.address,
     });
 });
 
@@ -59,8 +58,8 @@ router.delete("/:id", async (req, res) => {
   const rowsAffected = await patientModel.deletePatient(req.params.id);
   if (rowsAffected == false) {
     return res
-    .status(404)
-    .send("The patient with the given ID cannot be deleted.");
+      .status(404)
+      .send("The patient with the given ID cannot be deleted.");
   }
   res.send({ deleted: true });
 });
