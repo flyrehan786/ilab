@@ -4,3 +4,49 @@
     height: 38px;
   }
 }
+// -----------------------
+//portal side bar customization
+// -----------------------
+.portal-sidebar {
+  // :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-root.ant-menu-inline{
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  // }
+  // :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-inline .ant-menu-item{
+  //     width: 210px;
+  //     padding-left: 16px !important;
+  // }
+  .ant-menu-item-selected {
+    svg {
+      path {
+        stroke: black;
+      }
+    }
+  }
+  // fixing padding of nav sidebar nav items
+  .ant-menu-inline-collapsed > .ant-menu-item {
+    padding: 5px 0 0 16px !important;
+    transition: 1s ease-in-out;
+  }
+  // fixing padding of nav sidebar nav items
+  .ant-menu-inline.ant-menu-root .ant-menu-item {
+    padding: 5px 0 0 16px !important;
+    display: block !important;
+  }
+
+  // for removing border of antd menu
+  .ant-menu-light.ant-menu-root.ant-menu-vertical,
+  .ant-menu-light.ant-menu-root.ant-menu-inline {
+    border: none !important;
+    // border-inline-end: none;
+  }
+  // menu title customization
+  .ant-menu-title-content {
+    position: absolute;
+    top: 0;
+    a {
+      margin-top: 22px !important;
+    }
+  }
+}
