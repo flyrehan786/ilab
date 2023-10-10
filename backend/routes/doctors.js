@@ -32,13 +32,12 @@ router.post("", async (req, res) => {
 
   const newDoctor = {
     id: null,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    username: req.body.username,
-    password: encryptPassword,
-    is_admin: req.body.is_admin,
-    status: 1
+    full_name: req.body.full_name,
+    gender: req.body.gender,
+    contact_number: req.body.contact_number,
+    email_address: req.body.email_address,
+    address: req.body.address,
+    specialization: req.body.specialization,
   };
 
   const insertedId = await doctorModel.saveDoctor(newDoctor);
@@ -46,12 +45,12 @@ router.post("", async (req, res) => {
   res
     .send({
       id: newDoctor.id,
-      first_name: newDoctor.first_name,
-      last_name: newDoctor.last_name,
-      email: newDoctor.email,
-      username: newDoctor.username,
-      is_admin: newDoctor.is_admin,
-      status: newDoctor.status
+      full_name: newDoctor.full_name,
+      gender: newDoctor.gender,
+      contact_number: newDoctor.contact_number,
+      email_address: newDoctor.email_address,
+      address: newDoctor.address,
+      specialization: newDoctor.specialization
     });
 });
 
