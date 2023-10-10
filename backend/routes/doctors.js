@@ -27,19 +27,19 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { error } = patientModel.validate(req.body);
+  const { error } = doctorModel.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const updatedPatient = await patientModel.updatePatient(
+  const updatedDoctor = await doctorModel.updateDoctor(
     req.params.id,
     req.body
   );
 
-  if (!updatedPatient)
+  if (!updatedDoctor)
     return res
       .status(404)
-      .send("The patient with the given ID was not found.");
-  res.send(updatedPatient);
+      .send("The doctor with the given ID was not found.");
+  res.send(updatedDoctor);
 });
 
 router.post("", async (req, res) => {
