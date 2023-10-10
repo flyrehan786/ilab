@@ -1,6 +1,6 @@
 import React from 'react';
 const Login = React.lazy(() => import('../Pages/Login/Login'));
-const Signin = React.lazy(() => import('../Pages/Signin/Signin'));
+const SignUp = React.lazy(() => import('../Pages/SignUp/SignUp'));
 const Home = React.lazy(() => import('../Pages/Home/Home'));
 
 export const routes = [
@@ -14,7 +14,7 @@ export const routes = [
     key: 'signin',
     path: '/signin',
     isPrivate: false,
-    element: <Signin />,
+    element: <SignUp />,
   },
   {
     key: 'home',

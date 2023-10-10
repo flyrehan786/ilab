@@ -7,14 +7,15 @@ const AppRoutes = () => {
   //================================
   // Token Login Here
   //================================
-  const token = true;
+  const token = JSON.parse(localStorage.getItem('token'));
+  console.log(token);
 
   //=========================================
   // Check the route if private & don't
   // have token the navigate to './login'
   //========================================
   const renderRoute = (route, token) => {
-    if (route.isPrivate && !token) {
+    if (route.isPrivate && !token?.jwtToken) {
       return <Navigate to={'/login'} replace />;
     }
     return route.element;
