@@ -19,7 +19,6 @@ function validatePatientTest(patientTest) {
     return Joi.validate(patientTest, schema);
 }
 
-
 async function findAll() {
     return new Promise((resolve, reject) => {
         db.execute((`SELECT * FROM patient_tests`), [], (err, result) => {
@@ -90,9 +89,45 @@ async function deletePatientTests(id) {
     })
 }
 
+async function patientTestCompleted() {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE id=?;',
+            [
+                1,
+                id
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests WHERE id = ${id};`, (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result[0]);
+                    else resolve(null);
+                })
+            })
+    })
+}
+async function patientTestPending() {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE id=?;',
+            [
+                0,
+                id
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests WHERE id = ${id};`, (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result[0]);
+                    else resolve(null);
+                })
+            })
+    })
+}
+
+
 exports.validate = validatePatientTest;
 exports.findPatientTests = findPatientTests;
 exports.savePatientTests = savePatientTests;
 exports.findAll = findAll;
 exports.updatePatientTests = updatePatientTests;
 exports.deletePatientTests = deletePatientTests;
+exports.patientTestCompleted = patientTestCompleted;
+exports.patientTestPending = patientTestPending;
