@@ -11,7 +11,7 @@ function validatePayment(payment) {
             .min(4)
             .max(256)
             .required(),
-        total_discout: Joi.string()
+        total_discount: Joi.string()
             .min(4)
             .max(256)
             .required(),
