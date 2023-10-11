@@ -72,7 +72,7 @@ async function findPayment(id) {
 
 async function updatePayment(id, updatedPayment) {
     return new Promise((resolve, reject) => {
-        db.execute('Update payments SET patient_test_uuid=?,total_amount=?, total_discount=?, total_paid_amount=?, total_balance_amount=? updated_at=Now() WHERE id=?;',
+        db.execute('Update payments SET patient_test_uuid=?,total_amount=?, total_discount=?, total_paid_amount=?, total_balance_amount=?, updated_at=Now() WHERE id=?;',
             [
                 updatedPayment.patient_test_uuid,
                 updatedPayment.total_amount,
