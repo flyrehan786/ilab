@@ -78,7 +78,7 @@ async function findDoctor(id) {
 
 async function updateDoctor(id, updatedDoctor) {
     return new Promise((resolve, reject) => {
-        db.execute('Update doctors SET full_name=?,gender=?, contact_number=?, email_address=?, address=?, specialization=? WHERE id=?;',
+        db.execute('Update doctors SET full_name=?,gender=?, contact_number=?, email_address=?, address=?, specialization=?, updated_at=NOW() WHERE id=?;',
             [
                 updatedDoctor.full_name,
                 updatedDoctor.gender,
