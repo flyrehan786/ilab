@@ -13,7 +13,7 @@ function validateTest(test) {
             .required(),
         male_reference_rage: Joi.string()
             .min(1)
-            .max(1)
+            .max(256)
             .required(),
         female_reference_rage: Joi.string()
             .min(1)
