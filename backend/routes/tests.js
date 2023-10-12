@@ -49,8 +49,8 @@ const newTest = {
     id: null,
     name: req.body.name,
     unit: req.body.unit,
-    male_reference_rage: req.body.male_reference_rage,
-    female_reference_rage: req.body.female_reference_rage,
+    male_reference_range: req.body.male_reference_range,
+    female_reference_range: req.body.female_reference_range,
     price: req.body.price,
     description: req.body.description,
   };
@@ -62,8 +62,8 @@ const newTest = {
       id: newTest.id,
       name: newTest.name,
       unit: newTest.unit,
-      male_reference_rage: newTest.male_reference_rage,
-      female_reference_rage: newTest.female_reference_rage,
+      male_reference_range: newTest.male_reference_range,
+      female_reference_range: newTest.female_reference_range,
       price: newTest.price,
       description: newTest.description,
     });
