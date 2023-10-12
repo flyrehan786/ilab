@@ -4,11 +4,11 @@ const db = require('../services/mysql').db;
 function validateTest(test) {
     const schema = {
         name: Joi.string()
-            .min(4)
+            .min(1)
             .max(256)
             .required(),
         unit: Joi.string()
-            .min(4)
+            .min(1)
             .max(256)
             .required(),
         male_reference_rage: Joi.string()
@@ -16,14 +16,14 @@ function validateTest(test) {
             .max(1)
             .required(),
         female_reference_rage: Joi.string()
-            .min(6)
+            .min(1)
             .max(256),
         price: Joi.string()
-            .min(6)
+            .min(1)
             .max(256)
             .required(),
         description: Joi.string()
-            .min(6)
+            .min(0)
             .max(256)
             .required()
     };
