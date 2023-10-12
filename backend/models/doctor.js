@@ -25,7 +25,7 @@ function validateDoctor(doctor) {
             .max(256)
             .required(),
         specialization: Joi.string()
-            .min(6)
+            .min(2)
             .max(256)
             .required()
     };
