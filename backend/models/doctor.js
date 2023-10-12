@@ -10,8 +10,7 @@ function validateDoctor(doctor) {
         gender: Joi.string()
             .min(1)
             .max(1)
-            .required()
-            .email(),
+            .required(),
         contact_number: Joi.string()
             .min(6)
             .max(256)
@@ -19,7 +18,8 @@ function validateDoctor(doctor) {
         email_address: Joi.string()
             .min(6)
             .max(256)
-            .required(),
+            .required()
+            .email(),
         address: Joi.string()
             .min(6)
             .max(256)
