@@ -76,7 +76,7 @@ async function findTest(id) {
 
 async function updateTest(id, updatedTest) {
     return new Promise((resolve, reject) => {
-        db.execute('Update tests SET name=?,unit=?, male_reference_range=?, female_reference_range=?, price=?, description=? WHERE id=?;',
+        db.execute('Update tests SET name=?,unit=?, male_reference_range=?, female_reference_range=?, price=?, description=?, updated_at=NOW() WHERE id=?;',
             [
                 updatedTest.name,
                 updatedTest.unit,
