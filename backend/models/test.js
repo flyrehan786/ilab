@@ -11,11 +11,11 @@ function validateTest(test) {
             .min(1)
             .max(256)
             .required(),
-        male_reference_rage: Joi.string()
+        male_reference_range: Joi.string()
             .min(1)
             .max(256)
             .required(),
-        female_reference_rage: Joi.string()
+        female_reference_range: Joi.string()
             .min(1)
             .max(256),
         price: Joi.string()
