@@ -46,8 +46,8 @@ async function saveTest(newTest) {
             [
                 newTest.name,
                 newTest.unit,
-                newTest.male_reference_rage,
-                newTest.female_reference_rage,
+                newTest.male_reference_range,
+                newTest.female_reference_range,
                 newTest.price,
                 newTest.description,
             ], (err, result) => {
@@ -76,12 +76,12 @@ async function findTest(id) {
 
 async function updateTest(id, updatedTest) {
     return new Promise((resolve, reject) => {
-        db.execute('Update tests SET name=?,unit=?, male_reference_rage=?, female_reference_rage=?, price=?, description=? WHERE id=?;',
+        db.execute('Update tests SET name=?,unit=?, male_reference_range=?, female_reference_range=?, price=?, description=? WHERE id=?;',
             [
                 updatedTest.name,
                 updatedTest.unit,
-                updatedTest.male_reference_rage,
-                updatedTest.female_reference_rage,
+                updatedTest.male_reference_range,
+                updatedTest.female_reference_range,
                 updatedTest.price,
                 updatedTest.description,
                 id
