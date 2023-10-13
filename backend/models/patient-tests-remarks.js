@@ -32,11 +32,12 @@ async function findAll() {
 
 async function savePatientTestsRemarks(newPatientTestsRemarks) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO patient_tests_remakrs VALUES(default, ?, ?, ?, NOW(), NOW())`,
+        db.execute(`INSERT INTO patient_tests_remakrs VALUES(default, ?, ?, ?,?, NOW(), NOW())`,
             [
                 newPatientTestsRemarks.patient_test_uuid,
                 newPatientTestsRemarks.patient_id,
                 newPatientTestsRemarks.refered_by_doctor_id,
+                newPatientTestsRemarks.remarks,
             ], (err, result) => {
                 if (err) reject(err);
                 db.execute(`SELECT id FROM patient_tests_remakrs WHERE id = LAST_INSERT_ID();`, (err, result) => {
@@ -63,11 +64,12 @@ async function findPatientTestsRemarks(id) {
 
 async function updatePatientTestsRemarks(id, updatedPatientTestsRemarks) {
     return new Promise((resolve, reject) => {
-        db.execute('Update patient_tests_remakrs SET patient_test_uuid=?,patient_id=?, refered_by_doctor_id=?, updated_at=Now() WHERE id=?;',
+        db.execute('Update patient_tests_remakrs SET patient_test_uuid=?,patient_id=?, refered_by_doctor_id=?, remarks=?, updated_at=Now() WHERE id=?;',
             [
                 updatedPatientTestsRemarks.patient_test_uuid,
                 updatedPatientTestsRemarks.patient_id,
                 updatedPatientTestsRemarks.refered_by_doctor_id,
+                updatedPatientTestsRemarks.remarks,
                 id
             ], (err, result) => {
                 if (err) reject(err);
