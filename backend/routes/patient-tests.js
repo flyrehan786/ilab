@@ -17,24 +17,24 @@ router.get("", async (req, res) => {
 });
 
 router.post("", async (req, res) => {
-    // Request JSON.
-    // generate UUID.
-    const uuid = new Date().getTime();
+    const uuid = new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime();
     const testStatus = '0';
-    const requestObj = {
-        patient_id: '1',
-        doctor_id: '1',
-        selected_tests: [1, 2, 3, 4],
-        total_amount: 10000,
-        paid_amount: 10000,
-        discount_amount: 2000,
-        balance_amount: 8000,
-        remarks: '...'
-    };
+    // Request Body: 
+    // {
+    //     "patient_id": 1,
+    //     "doctor_id": 1,
+    //     "selected_tests": [1, 2, 3, 4],
+    //     "total_amount": 10000,
+    //     "paid_amount": 10000,
+    //     "discount_amount": 2000,
+    //     "balance_amount": 8000,
+    //     "remarks": "..."
+    // }
+
     // validate data.
     // Insert into Patient Tests.
     let patientTestsSaveResults = [];
-    requestObj.selected_tests.forEach(async t => {
+    req.body.selected_tests.forEach(async t => {
         const patientTestSaveResult = await patientTestsModel.savePatientTests({
             uuid: uuid,
             test_id: t,
@@ -47,19 +47,19 @@ router.post("", async (req, res) => {
     // Insert into Patient Tests Remarks.
     const patientTestsRemarksSaveResult = await patientTestsRemarksModel.savePatientTestsRemarks({
         patient_tests_uuid: uuid,
-        patient_id: requestObj.patient_id,
-        refered_by_doctor_id: requestObj.doctor_id,
-        remarks: requestObj.remarks
+        patient_id: req.body.patient_id,
+        refered_by_doctor_id: req.body.doctor_id,
+        remarks: req.body.remarks
     });
 
 
     // Insert into payments.
     const paymentsSaveResult = await paymentsModel.savePayment({
         patient_tests_uuid: uuid,
-        total_amount: requestObj.total_amount,
-        total_discount: requestObj.discount_amount,
-        total_paid_amount: requestObj.paid_amount,
-        total_balance_amount: requestObj.balance_amount
+        total_amount: req.body.total_amount,
+        total_discount: req.body.discount_amount,
+        total_paid_amount: req.body.paid_amount,
+        total_balance_amount: req.body.balance_amount
     });
 
     if (
