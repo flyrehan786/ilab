@@ -60,6 +60,19 @@ async function findPatientTests(id) {
     })
 }
 
+async function findPatientTestsByUUID(uuid) {
+    return new Promise((resolve, reject) => {
+        db.execute(`SELECT * FROM patient_tests WHERE uuid=?`,
+            [
+                uuid
+            ], (err, result) => {
+                if (err) reject(err);
+                if (result.length > 0) resolve(result);
+                else resolve(null);
+            });
+    })
+}
+
 async function updatePatientTests(id, updatedPatientTests) {
     return new Promise((resolve, reject) => {
         db.execute('Update patient_tests SET uuid=?,test_id=?, status=?, updated_at=Now() WHERE id=?;',
@@ -125,6 +138,7 @@ async function patientTestPending() {
 
 exports.validate = validatePatientTest;
 exports.findPatientTests = findPatientTests;
+exports.findPatientTestsByUUID = findPatientTestsByUUID;
 exports.savePatientTests = savePatientTests;
 exports.findAll = findAll;
 exports.updatePatientTests = updatePatientTests;

@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `patient_test_remarks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `patient_test_remarks` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `patient_test_uuid` varchar(45) DEFAULT NULL,
+  `patient_tests_uuid` varchar(45) DEFAULT NULL,
   `remarks` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

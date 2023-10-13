@@ -3,7 +3,7 @@ const db = require('../services/mysql').db;
 
 function validateTestResult(testResult) {
     const schema = {
-        patient_test_uuid: Joi.string()
+        patient_tests_uuid: Joi.string()
             .min(4)
             .max(256)
             .required(),
