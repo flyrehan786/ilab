@@ -38,7 +38,7 @@ async function savePatientTests(newPatientTest) {
                 newPatientTest.status,
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM patient_tests WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                db.execute(`SELECT id FROM patient_tests WHERE id = ?;`,[ result.insertId ], (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
@@ -55,6 +55,19 @@ async function findPatientTests(id) {
             ], (err, result) => {
                 if (err) reject(err);
                 if (result.length > 0) resolve(result[0]);
+                else resolve(null);
+            });
+    })
+}
+
+async function findPatientTestsByUUID(uuid) {
+    return new Promise((resolve, reject) => {
+        db.execute(`SELECT * FROM patient_tests WHERE uuid=?`,
+            [
+                uuid
+            ], (err, result) => {
+                if (err) reject(err);
+                if (result.length > 0) resolve(result);
                 else resolve(null);
             });
     })
@@ -125,6 +138,7 @@ async function patientTestPending() {
 
 exports.validate = validatePatientTest;
 exports.findPatientTests = findPatientTests;
+exports.findPatientTestsByUUID = findPatientTestsByUUID;
 exports.savePatientTests = savePatientTests;
 exports.findAll = findAll;
 exports.updatePatientTests = updatePatientTests;

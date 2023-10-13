@@ -3,7 +3,7 @@ const db = require('../services/mysql').db;
 
 function validatePayment(payment) {
     const schema = {
-        patient_test_uuid: Joi.string()
+        patient_tests_uuid: Joi.string()
             .min(4)
             .max(256)
             .required(),
@@ -41,14 +41,14 @@ async function savePayment(newPayment) {
     return new Promise((resolve, reject) => {
         db.execute(`INSERT INTO payments VALUES(default, ?, ?, ?, ?, ?, NOW(), NOW())`,
             [
-                newPayment.patient_test_uuid,
+                newPayment.patient_tests_uuid,
                 newPayment.total_amount,
                 newPayment.total_discount,
                 newPayment.total_paid_amount,
                 newPayment.total_balance_amount
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM payments WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                db.execute(`SELECT id FROM payments WHERE id = ?;`, [ result.insertId ], (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
@@ -70,11 +70,24 @@ async function findPayment(id) {
     })
 }
 
+async function findPaymentByUUID(uuid) {
+    return new Promise((resolve, reject) => {
+        db.execute(`SELECT * FROM payments WHERE patient_tests_uuid=?`,
+            [
+                uuid
+            ], (err, result) => {
+                if (err) reject(err);
+                if (result.length > 0) resolve(result);
+                else resolve(null);
+            });
+    })
+}
+
 async function updatePayment(id, updatedPayment) {
     return new Promise((resolve, reject) => {
-        db.execute('Update payments SET patient_test_uuid=?,total_amount=?, total_discount=?, total_paid_amount=?, total_balance_amount=?, updated_at=Now() WHERE id=?;',
+        db.execute('Update payments SET patient_tests_uuid=?,total_amount=?, total_discount=?, total_paid_amount=?, total_balance_amount=?, updated_at=Now() WHERE id=?;',
             [
-                updatedPayment.patient_test_uuid,
+                updatedPayment.patient_tests_uuid,
                 updatedPayment.total_amount,
                 updatedPayment.total_discount,
                 updatedPayment.total_paid_amount,
@@ -103,6 +116,7 @@ async function deletePayment(id) {
 
 exports.validate = validatePayment;
 exports.findPayment = findPayment;
+exports.findPaymentByUUID = findPaymentByUUID;
 exports.savePayment = savePayment;
 exports.findAll = findAll;
 exports.updatePayment = updatePayment;

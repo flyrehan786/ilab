@@ -53,7 +53,7 @@ async function savePatient(newPatient) {
         newPatient.address, 
       ], (err, result) => {
       if (err) reject(err);
-      db.execute(`SELECT id FROM patients WHERE id = LAST_INSERT_ID();`, (err, result) => {
+      db.execute(`SELECT id FROM patients WHERE id = ?;`,[ result.insertId ], (err, result) => {
         if (err) reject(err);
         if (result.length > 0) resolve(result[0].id);
         else resolve(null);
