@@ -20,7 +20,7 @@ router.post("", async (req, res) => {
     // Request JSON.
     // generate UUID.
     const uuid = new Date().getTime();
-    const testStatus = 'pending';
+    const testStatus = '0';
     const requestObj = {
         patient_id: '1',
         doctor_id: '1',
@@ -61,6 +61,15 @@ router.post("", async (req, res) => {
         total_paid_amount: requestObj.paid_amount,
         total_balance_amount: requestObj.balance_amount
     });
+
+    console.log('Patient Tests Save Results:');
+    console.log(patientTestsSaveResults);
+
+    console.log('Patient Tests Remarks Save Result:');
+    console.log(patientTestsRemarksSaveResult);
+
+    console.log('Payment Save Result');
+    console.log(paymentsSaveResult);
 
     // Checking all Tests are saved Successfully ?
     // Checking remarks details are saved successfully ? 

@@ -22,7 +22,7 @@ function validatePatientTestRemarks(patientTest) {
 
 async function findAll() {
     return new Promise((resolve, reject) => {
-        db.execute((`SELECT * FROM patient_tests_remakrs`), [], (err, result) => {
+        db.execute((`SELECT * FROM patient_tests_remarks`), [], (err, result) => {
             if (err) reject(err);
             if (result.length > 0) resolve(result);
             else resolve([]);
@@ -32,7 +32,7 @@ async function findAll() {
 
 async function savePatientTestsRemarks(newPatientTestsRemarks) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO patient_tests_remakrs VALUES(default, ?, ?, ?,?, NOW(), NOW())`,
+        db.execute(`INSERT INTO patient_tests_remarks VALUES(default, ?, ?, ?,?, NOW(), NOW())`,
             [
                 newPatientTestsRemarks.patient_test_uuid,
                 newPatientTestsRemarks.patient_id,
@@ -40,7 +40,7 @@ async function savePatientTestsRemarks(newPatientTestsRemarks) {
                 newPatientTestsRemarks.remarks,
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM patient_tests_remakrs WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                db.execute(`SELECT id FROM patient_tests_remarks WHERE id = ?;`, [ result.insertId ], (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
@@ -51,7 +51,7 @@ async function savePatientTestsRemarks(newPatientTestsRemarks) {
 
 async function findPatientTestsRemarks(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM patient_tests_remakrs WHERE id=?`,
+        db.execute(`SELECT * FROM patient_tests_remarks WHERE id=?`,
             [
                 id
             ], (err, result) => {
@@ -64,7 +64,7 @@ async function findPatientTestsRemarks(id) {
 
 async function updatePatientTestsRemarks(id, updatedPatientTestsRemarks) {
     return new Promise((resolve, reject) => {
-        db.execute('Update patient_tests_remakrs SET patient_test_uuid=?,patient_id=?, refered_by_doctor_id=?, remarks=?, updated_at=Now() WHERE id=?;',
+        db.execute('Update patient_tests_remarks SET patient_test_uuid=?,patient_id=?, refered_by_doctor_id=?, remarks=?, updated_at=Now() WHERE id=?;',
             [
                 updatedPatientTestsRemarks.patient_test_uuid,
                 updatedPatientTestsRemarks.patient_id,
@@ -73,7 +73,7 @@ async function updatePatientTestsRemarks(id, updatedPatientTestsRemarks) {
                 id
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT * FROM patient_tests_remakrs WHERE id = ${id};`, (err, result) => {
+                db.execute(`SELECT * FROM patient_tests_remarks WHERE id = ${id};`, (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0]);
                     else resolve(null);
@@ -84,7 +84,7 @@ async function updatePatientTestsRemarks(id, updatedPatientTestsRemarks) {
 
 async function deletePatientTestsRemarks(id) {
     return new Promise((resolve, reject) => {
-        db.execute(`DELETE FROM patient_tests_remakrs WHERE id=?`, [id], (err, result) => {
+        db.execute(`DELETE FROM patient_tests_remarks WHERE id=?`, [id], (err, result) => {
             if (err) reject(err);
             if (result.affectedRows == 1) resolve(true);
             else resolve(false);

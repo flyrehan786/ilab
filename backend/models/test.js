@@ -52,7 +52,7 @@ async function saveTest(newTest) {
                 newTest.description,
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM tests WHERE id = LAST_INSERT_ID();`, (err, result) => {
+                db.execute(`SELECT id FROM tests WHERE id = ?;`,[ result.insertId ], (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
