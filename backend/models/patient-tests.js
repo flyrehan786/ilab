@@ -29,13 +29,13 @@ async function findAll() {
     })
 }
 
-async function savePatientTests(newPayment) {
+async function savePatientTests(newPatientTest) {
     return new Promise((resolve, reject) => {
         db.execute(`INSERT INTO patient_tests VALUES(default, ?, ?, ?, NOW(), NOW())`,
             [
-                newPayment.uuid,
-                newPayment.test_id,
-                newPayment.status,
+                newPatientTest.uuid,
+                newPatientTest.test_id,
+                newPatientTest.status,
             ], (err, result) => {
                 if (err) reject(err);
                 db.execute(`SELECT id FROM patient_tests WHERE id = LAST_INSERT_ID();`, (err, result) => {
