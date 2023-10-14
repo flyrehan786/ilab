@@ -4,49 +4,50 @@
     height: 38px;
   }
 }
-// -----------------------
-//portal side bar customization
-// -----------------------
+// =====================================
+// portal side bar customization
+// =====================================
 .portal-sidebar {
-  // :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-root.ant-menu-inline{
-  //     display: flex;
-  //     flex-direction: column;
-  //     align-items: center;
-  // }
-  // :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-inline .ant-menu-item{
-  //     width: 210px;
-  //     padding-left: 16px !important;
-  // }
+  :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-root.ant-menu-inline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  :where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light.ant-menu-inline .ant-menu-item {
+    width: 210px;
+    padding-left: 16px !important;
+  }
   .ant-menu-item-selected {
+    background-color: #7c047a;
+    color: white;
+    position: relative;
     svg {
       path {
-        stroke: black;
+        fill: white;
+        stroke: white;
       }
     }
   }
-  // fixing padding of nav sidebar nav items
-  .ant-menu-inline-collapsed > .ant-menu-item {
-    padding: 5px 0 0 16px !important;
-    transition: 1s ease-in-out;
-  }
-  // fixing padding of nav sidebar nav items
-  .ant-menu-inline.ant-menu-root .ant-menu-item {
-    padding: 5px 0 0 16px !important;
-    display: block !important;
-  }
-
-  // for removing border of antd menu
-  .ant-menu-light.ant-menu-root.ant-menu-vertical,
-  .ant-menu-light.ant-menu-root.ant-menu-inline {
-    border: none !important;
-    // border-inline-end: none;
-  }
-  // menu title customization
-  .ant-menu-title-content {
+  .ant-menu-item-selected::before {
+    content: '';
     position: absolute;
-    top: 0;
-    a {
-      margin-top: 22px !important;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 25px;
+    border-radius: 20%;
+    background-color: white;
+  }
+  :where(.css-dev-only-do-not-override-pr0fja).ant-menu-light.ant-menu-root.ant-menu-inline,
+  :where(.css-dev-only-do-not-override-pr0fja).ant-menu-light > .ant-menu.ant-menu-root.ant-menu-inline,
+  :where(.css-dev-only-do-not-override-pr0fja).ant-menu-light.ant-menu-root.ant-menu-vertical,
+  :where(.css-dev-only-do-not-override-pr0fja).ant-menu-light > .ant-menu.ant-menu-root.ant-menu-vertical {
+    border-inline-end: none !important;
+  }
+  .logout-btn {
+    .ant-btn.ant-btn-icon-only {
+      padding: 16px 26px !important;
     }
   }
 }

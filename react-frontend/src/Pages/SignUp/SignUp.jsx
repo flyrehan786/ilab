@@ -48,40 +48,45 @@ const SignUp = () => {
   return (
     <>
       {contextHolder}
-      <div className='w-full h-screen flex justify-center items-center bg-light-gray'>
-        <Form onFinish={onFinishHandler} className='standand-input bg-white w-[400px] py-[32px] px-[40px] rounded box-border shadow-boxShadow'>
+      <div className='w-full h-screen flex justify-center items-center bg-light-purple'>
+        <div className='flex flex-col justify-center gap-6 items-center w-full h-full'>
           <div className='flex flex-col justify-center items-center mb-[16px]'>
             <JiraLogo />
-            <p className='font-medium text-[16px] leading-5 pt-[24px]'>Sign up to continue</p>
           </div>
-          <Form.Item name='first_name'>
-            <Input placeholder='Enter your First Name' />
-          </Form.Item>
-          <Form.Item name='last_name'>
-            <Input placeholder='Enter your Last Name' />
-          </Form.Item>
-          <Form.Item name='email'>
-            <Input placeholder='Enter your email' />
-          </Form.Item>
-          <Form.Item name='username'>
-            <Input placeholder='Enter your username' />
-          </Form.Item>
-          <Form.Item name='password'>
-            <Input type='password' placeholder='Enter your password' />
-          </Form.Item>
-          <Button htmlType='submit' className='w-full h-[38px] bg-theme-color text-white text-[16px] rounded-none hover:!text-white'>
-            Register
-          </Button>
-          <Divider className='bg-[#D8D5CD] mt-8' />
-          <div className='flex justify-center text-theme-color tracking-wide'>
-            <p className='text-[15px] text-text-gray'>
-              Already have an account ?{' '}
-              <span onClick={() => navigate('/login')} className='cursor-pointer font-medium'>
-                Login
-              </span>
-            </p>
-          </div>
-        </Form>
+          <Form onFinish={onFinishHandler} className='standand-input bg-white w-full md:w-[456px] py-5 md:py-10 px-8 md:px-16 md:rounded-md border border-[#DFDFDF] shadow-[0px_5px_15px_#8A8A8A1A]'>
+            <div className='flex flex-col mb-8'>
+              <h2 className='text-black text-[24px] font-semibold'>Sign Up</h2>
+              <h3 className='text-text-gray text-[16px]'>Enter details below to sign up</h3>
+            </div>
+            <Form.Item name='first_name'>
+              <Input placeholder='Enter your First Name' />
+            </Form.Item>
+            <Form.Item name='last_name'>
+              <Input placeholder='Enter your Last Name' />
+            </Form.Item>
+            <Form.Item name='email'>
+              <Input placeholder='Enter your email' />
+            </Form.Item>
+            <Form.Item name='username'>
+              <Input placeholder='Enter your username' />
+            </Form.Item>
+            <Form.Item name='password'>
+              <Input type='password' placeholder='Enter your password' />
+            </Form.Item>
+            <Button htmlType='submit' className='w-full h-[40px] bg-dark-purple text-white hover:!text-white rounded-none'>
+              Register
+            </Button>
+            <Divider className='bg-[#D8D5CD] mt-8' />
+            <div className='flex justify-center text-theme-color tracking-wide'>
+              <p className='text-[14px] text-text-gray'>
+                Already have an account ?{' '}
+                <span onClick={() => navigate('/login')} className='cursor-pointer font-medium'>
+                  Login
+                </span>
+              </p>
+            </div>
+          </Form>
+        </div>
       </div>
     </>
   );

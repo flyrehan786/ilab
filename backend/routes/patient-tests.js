@@ -59,7 +59,6 @@ router.post("", async (req, res) => {
         total_paid_amount: req.body.paid_amount,
         total_balance_amount: req.body.balance_amount
     });
-
     if (
         patientTestsSaveResults !== null &&
         patientTestsRemarksSaveResult !== null &&
