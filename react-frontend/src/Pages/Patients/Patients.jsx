@@ -1,106 +1,133 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BgText from '../../Components/Common/Table/BgText';
 import CommonTable from '../../Components/Common/Table/CommonTable';
+import EditIcon from '../../assets/svgs/edit.svg?react';
+import ViewIcon from '../../assets/svgs/view.svg?react';
+import DeleteIcon from '../../assets/svgs/delete.svg?react';
+import DeleteModal from '../../Components/Common/Modals/DeleteModal';
+import ModalLayout from '../../Layout/ModalLayout';
 
 const Patients = () => {
+  const [isShow, setIsShow] = useState(false);
+  const navigate = useNavigate();
   const columns = [
     {
       key: '1',
-      title: 'Office ID',
-      dataIndex: 'officeId',
+      title: 'Patient ID',
+      dataIndex: 'id',
       render: (text) => <BgText text={text} />,
     },
     {
       key: '2',
-      title: 'Company Name',
-      dataIndex: 'companyName',
+      title: 'Full Name',
+      dataIndex: 'full_name',
     },
     {
       key: '3',
-      title: 'Owner Email Address',
-      dataIndex: 'ownerEmailAddress',
+      title: 'Date of brith',
+      dataIndex: 'date_of_birth',
     },
     {
       key: '4',
-      title: 'Owner Phone Number',
-      dataIndex: 'ownerPhoneNumber',
+      title: 'Gender',
+      dataIndex: 'gender',
     },
     {
       key: '5',
-      title: 'Commission %',
-      dataIndex: 'commission',
-      render: (text) => <span className='flex justify-center items-center'>{text}</span>,
+      title: 'Contant Number',
+      dataIndex: 'contact_number',
     },
     {
       key: '6',
-      title: 'Status',
-      dataIndex: 'status',
+      title: 'Address',
+      dataIndex: 'address',
+    },
+    {
+      key: '7',
+      title: 'Actions',
+      dataIndex: 'actions',
+      render: (_, record) => {
+        return (
+          <div className='flex justify-center items-center gap-x-3'>
+            <span
+              className='cursor-pointer w-5'
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/patients/${record?.id}`, {
+                  state: {
+                    record,
+                  },
+                });
+              }}>
+              <ViewIcon />
+            </span>
+            <span
+              className='cursor-pointer w-5'
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/patients/edit-patient/3232', {
+                  state: {
+                    editPage: true,
+                    record,
+                  },
+                });
+              }}>
+              <EditIcon />
+            </span>
+            <span
+              className='cursor-pointer w-5'
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsShow(true);
+              }}>
+              <DeleteIcon />
+            </span>
+          </div>
+        );
+      },
     },
   ];
   const data = [
     {
-      officeId: '6466',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(534)543-8753',
-      commission: '54',
-      status: 0,
+      id: '6466',
+      full_name: 'Patient One',
+      date_of_birth: 'patient.james@mail.com',
+      gender: '0',
+      contact_number: '(544) 434 4554',
+      address: 'Pakistan KPK Peshawar Ring Road',
     },
     {
-      officeId: '6467',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(543)833-5465',
-      commission: '40',
-      status: 1,
+      id: '6466',
+      full_name: 'ABC Translation Services',
+      date_of_birth: 'megan.james@mail.com',
+      gender: '(534)543-8753',
+      contact_number: '54',
+      address: 0,
     },
     {
-      officeId: '6468',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(534)545-6546',
-      commission: '34',
-      status: 1,
+      id: '6466',
+      full_name: 'ABC Translation Services',
+      date_of_birth: 'megan.james@mail.com',
+      gender: '(534)543-8753',
+      contact_number: '54',
+      address: 0,
     },
     {
-      officeId: '6469',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(453)567-3543',
-      commission: '54',
-      status: 0,
+      id: '6466',
+      full_name: 'ABC Translation Services',
+      date_of_birth: 'megan.james@mail.com',
+      gender: '(534)543-8753',
+      contact_number: '54',
+      address: 0,
     },
     {
-      officeId: '6470',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(768)534-8767',
-      commission: '45',
-      status: 1,
-    },
-    {
-      officeId: '6471',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(324)435-5435',
-      commission: '43',
-      status: 0,
-    },
-    {
-      officeId: '6472',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(545)756-6735',
-      commission: '23',
-      status: 0,
-    },
-    {
-      officeId: '6473',
-      companyName: 'ABC Translation Services',
-      ownerEmailAddress: 'megan.james@mail.com',
-      ownerPhoneNumber: '(545)566-5637',
-      commission: '28',
-      status: 1,
+      id: '6466',
+      full_name: 'ABC Translation Services',
+      date_of_birth: 'megan.james@mail.com',
+      gender: '(534)543-8753',
+      contact_number: '54',
+      address: 0,
     },
   ];
   return (
@@ -109,24 +136,26 @@ const Patients = () => {
       <div className='grid grid-cols-[100%] gap-x-8 items-start'>
         <CommonTable
           tableTitle='All Patients (110)'
-          tableDesc='Following are patients registered with iLab 360'
+          tableDesc='Following are patients registered with iLab'
           columns={columns}
           data={data}
           totalCount={12}
-          btnName='Add New New Patient'
-          //   btnHandler={() => navigate('/admin/manage-transalation-offices/add-translation-office')}
-          //   onRow={(record) => ({
-          //     onClick: () => {
-          //       navigate(`/admin/manage-transalation-offices/translation-office-details/${record.officeId}`, {
-          //         state: {
-          //           record,
-          //           tab: 'translation-offices',
-          //         },
-          //       });
-          //     },
-          //   })}
+          btnName='Add New Patient'
+          btnHandler={() => navigate('/patients/add-patient')}
+          onRow={(record) => ({
+            onClick: () => {
+              navigate(`/patients/${record.officeId}`, {
+                state: {
+                  record,
+                },
+              });
+            },
+          })}
         />
       </div>
+      <ModalLayout setIsOpen={setIsShow} isOpen={isShow}>
+        <DeleteModal setIsOpen={setIsShow} />
+      </ModalLayout>
     </div>
   );
 };

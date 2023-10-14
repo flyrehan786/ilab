@@ -21,11 +21,11 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(<Link to={'#'}>Dashboard</Link>, '1', <DashboardIcon />),
-  getItem(<Link to={'#'}>Patients</Link>, '2', <UserOutlined />),
-  getItem(<Link to={'#'}>Doctors</Link>, '3', <UserOutlined />),
-  getItem(<Link to={'#'}>Test</Link>, '4', <TestIcon />),
-  getItem(<Link to={'#'}>Manage Users</Link>, '5', <ManageUserIcon />),
+  getItem(<Link to={'/'}>Dashboard</Link>, '1', <DashboardIcon />),
+  getItem(<Link to={'/patients'}>Patients</Link>, '2', <UserOutlined />),
+  getItem(<Link to={'/doctors'}>Doctors</Link>, '3', <UserOutlined />),
+  getItem(<Link to={'/tests'}>Test</Link>, '4', <TestIcon />),
+  getItem(<Link to={'/users'}>Manage Users</Link>, '5', <ManageUserIcon />),
 ];
 
 const MainLayout = ({ children }) => {
