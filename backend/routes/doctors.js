@@ -5,18 +5,18 @@ const express = require("express");
 const router = express.Router();
 
 router.get("", async (req, res) => {
-    try {
-      const doctors = await doctorModel.findAll();
-      const formattedDoctors = doctors.map(doctor => ({
-        ...doctor,
-        created_at: new Date(doctor.created_at).toLocaleString(),
-        updated_at: new Date(doctor.updated_at).toLocaleString(),
-      }));
-      res.send(formattedDoctors);
-    } catch (error) {
-      console.error('Error fetching doctors:', error);
-      res.status(500).send('Internal Server Error');
-    }
+  try {
+    const doctors = await doctorModel.findAll();
+    const formattedDoctors = doctors.map(doctor => ({
+      ...doctor,
+      created_at: new Date(doctor.created_at).toLocaleString(),
+      updated_at: new Date(doctor.updated_at).toLocaleString(),
+    }));
+    res.send(formattedDoctors);
+  } catch (error) {
+    console.error('Error fetching doctors:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 router.get("/:id", async (req, res) => {
@@ -78,8 +78,8 @@ router.delete("/:id", async (req, res) => {
   const rowsAffected = await doctorModel.deleteDoctor(req.params.id);
   if (rowsAffected == false) {
     return res
-    .status(404)
-    .send("The patient with the given ID cannot be deleted.");
+      .status(404)
+      .send("The patient with the given ID cannot be deleted.");
   }
   res.send({ deleted: true });
 });
