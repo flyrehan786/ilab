@@ -43,7 +43,6 @@ router.post("", async (req, res) => {
         if (patientTestSaveResult) patientTestsSaveResults.push(patientTestSaveResult);
     });
 
-
     // Insert into Patient Tests Remarks.
     const patientTestsRemarksSaveResult = await patientTestsRemarksModel.savePatientTestsRemarks({
         patient_tests_uuid: uuid,
@@ -51,7 +50,6 @@ router.post("", async (req, res) => {
         refered_by_doctor_id: req.body.doctor_id,
         remarks: req.body.remarks
     });
-
 
     // Insert into payments.
     const paymentsSaveResult = await paymentsModel.savePayment({
