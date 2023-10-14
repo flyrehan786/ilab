@@ -6,18 +6,27 @@ const patientTestsRemarksModel = require('../models/patient-tests-remarks');
 const paymentsModel = require('../models/payments');
 const express = require("express");
 const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 router.get("", async (req, res) => {
-    const patientTests = await patientTestsModel.findAll();
-    patientTests.forEach(x => {
-        x.created_at = new Date(x.created_at).toLocaleString();
-        x.updated_at = new Date(x.updated_at).toLocaleString();
-    })
-    res.send(patientTests);
+    try {
+        const patientTests = await patientTestsModel.findAll();
+        const formattedPatientTests = patientTests.map(test => {
+          return {
+            ...test,
+            created_at: new Date(test.created_at).toLocaleString(),
+            updated_at: new Date(test.updated_at).toLocaleString(),
+          };
+        });
+        res.send(formattedPatientTests);
+      } catch (error) {
+        console.error('Error fetching patient tests:', error);
+        res.status(500).send('Internal Server Error');
+      }
 });
 
 router.post("", async (req, res) => {
-    const uuid = new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime();
+    const uuid = uuidv4();
     const testStatus = '0';
     // Request Body: 
     // {
