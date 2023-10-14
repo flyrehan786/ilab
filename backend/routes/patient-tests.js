@@ -59,9 +59,6 @@ router.post("", async (req, res) => {
         total_paid_amount: req.body.paid_amount,
         total_balance_amount: req.body.balance_amount
     });
-    console.log(patientTestsSaveResults);
-    console.log(patientTestsRemarksSaveResult);
-    console.log(paymentsSaveResult);
     if (
         patientTestsSaveResults !== null &&
         patientTestsRemarksSaveResult !== null &&
