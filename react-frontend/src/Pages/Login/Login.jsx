@@ -66,7 +66,7 @@ const Login = () => {
               <Form onFinish={finishHandler}>
                 <div className='flex flex-col mb-8'>
                   <h2 className='text-black text-[24px] font-semibold'>Login</h2>
-                  <h3 className='text-gray text-[16px]'>Enter credentials to get access</h3>
+                  <h3 className='text-text-gray text-[16px]'>Enter credentials to get access</h3>
                 </div>
                 <Form.Item name={'username'}>
                   <Input type='text' placeholder='Email Username' className='h-[40px] rounded-sm' />
@@ -77,7 +77,7 @@ const Login = () => {
                 {/* <Form.Item name='save' valuePropName='checked'>
                   <Checkbox>Save credentials</Checkbox>
                 </Form.Item> */}
-                <Button htmlType='submit' className='w-full h-[40px] bg-dark-purple text-white hover:!text-white'>
+                <Button htmlType='submit' className='w-full h-[40px] bg-dark-purple text-white rounded-none hover:!text-white'>
                   Login
                 </Button>
               </Form>
