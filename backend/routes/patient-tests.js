@@ -6,6 +6,7 @@ const patientTestsRemarksModel = require('../models/patient-tests-remarks');
 const paymentsModel = require('../models/payments');
 const express = require("express");
 const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 router.get("", async (req, res) => {
     const patientTests = await patientTestsModel.findAll();
@@ -17,7 +18,7 @@ router.get("", async (req, res) => {
 });
 
 router.post("", async (req, res) => {
-    const uuid = new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime() + '-' + new Date().getTime();
+    const uuid = uuidv4();
     const testStatus = '0';
     // Request Body: 
     // {
