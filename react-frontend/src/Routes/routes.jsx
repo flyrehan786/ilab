@@ -3,7 +3,7 @@ const Login = React.lazy(() => import('../Pages/Login/Login'));
 const SignUp = React.lazy(() => import('../Pages/SignUp/SignUp'));
 const Home = React.lazy(() => import('../Pages/Home/Home'));
 
-export const routes = [
+export const all_routes = [
   {
     key: 'login',
     path: '/login',

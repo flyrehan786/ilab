@@ -53,7 +53,7 @@ const SignUp = () => {
           <div className='flex flex-col justify-center items-center mb-[16px]'>
             <JiraLogo />
           </div>
-          <Form onFinish={onFinishHandler} className='standand-input bg-white w-full md:w-[406px] py-5 md:py-10 px-8 md:px-16 md:rounded-md border border-[#DFDFDF] shadow-[0px_5px_15px_#8A8A8A1A]'>
+          <Form onFinish={onFinishHandler} className='standand-input bg-white w-full md:w-[456px] py-5 md:py-10 px-8 md:px-16 md:rounded-md border border-[#DFDFDF] shadow-[0px_5px_15px_#8A8A8A1A]'>
             <div className='flex flex-col mb-8'>
               <h2 className='text-black text-[24px] font-semibold'>Sign Up</h2>
               <h3 className='text-text-gray text-[16px]'>Enter details below to sign up</h3>

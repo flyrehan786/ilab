@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { routes } from './routes';
+import { all_routes } from './routes';
 import { Suspense } from 'react';
 import { Spin } from 'antd';
 import MainLayout from '../Layout/MainLayout';
@@ -25,7 +25,7 @@ const AppRoutes = () => {
   return (
     <Suspense fallback={<Spin size='large' />}>
       <Routes>
-        {routes.map((route) => (
+        {all_routes.map((route) => (
           <>
             {!token ? (
               <Route key={route.key} path={route.path} element={renderRoute(route, token)} />
