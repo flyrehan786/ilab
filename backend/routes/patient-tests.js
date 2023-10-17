@@ -48,14 +48,15 @@ router.post("", async (req, res) => {
     // validate data.
     // Insert into Patient Tests.
     let patientTestsSaveResults = [];
-    req.body.selected_tests.forEach(async t => {
+    for (let p = 0; p < req.body.selected_tests.length; p++) {
+        const t = req.body.selected_tests[p];
         const patientTestSaveResult = await patientTestsModel.savePatientTests({
             uuid: uuid,
             test_id: t,
             status: testStatus
         });
         if (patientTestSaveResult) patientTestsSaveResults.push(patientTestSaveResult);
-    });
+    }
 
     // Insert into Patient Tests Remarks.
     const patientTestsRemarksSaveResult = await patientTestsRemarksModel.savePatientTestsRemarks({
