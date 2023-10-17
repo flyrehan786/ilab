@@ -10,34 +10,34 @@ router.get("", async (req, res) => {
 
 router.post("", async (req, res) => {
     // Request Data.
-    const requestData = {
-        patient_test_uuid: '1697201760058',
-        test_results: [
-            {
-                test_id: 1,
-                result_value: 'adadasd',
-                remarks: '...'
-            },
-            {
-                test_id: 2,
-                result_value: 'hjgj',
-                remarks: '...'
-            },
-            {
-                test_id: 3,
-                result_value: 'hgjjdasd',
-                remarks: '...'
-            },
-            {
-                test_id: 4,
-                result_value: 'kjtvcd',
-                remarks: '...'
-            },
-        ]
-    }
+    // const req.body = {
+    //     patient_test_uuid: '1697201760058',
+    //     test_results: [
+    //         {
+    //             test_id: 1,
+    //             result_value: 'adadasd',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 2,
+    //             result_value: 'hjgj',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 3,
+    //             result_value: 'hgjjdasd',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 4,
+    //             result_value: 'kjtvcd',
+    //             remarks: '...'
+    //         },
+    //     ]
+    // }
     // Loop through Test Results from request data.
-    const uuid = requestData.patient_test_uuid;
-    const testResults = requestData.test_results;
+    const uuid = req.body.patient_test_uuid;
+    const testResults = req.body.test_results;
     let queryResults = { patient_test_uuid: uuid, updateQueryResult: [] };
     testResults.forEach(async tr => {
         const recordExist = await patientTestsResultsModel.findPatientTestsResultByTestIdAndUUID(uuid, tr.test_id);
