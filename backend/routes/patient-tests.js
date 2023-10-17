@@ -88,4 +88,8 @@ router.post("", async (req, res) => {
     } else res.send({ created: false, queriesResponse: [] });
 })
 
+router.put("", async (req, res) => {})
+
+router.delete("/:uuid", async (req, res) => {})
+
 module.exports = router;
