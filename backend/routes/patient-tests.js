@@ -32,7 +32,7 @@ router.get("/:uuid", async (req, res) => {
 
 router.post("", async (req, res) => {
     const uuid = uuidv4();
-    const testStatus = '0';
+    const testStatus = '0'; // pending
     // Request Body: 
     // {
     //     "patient_id": 1,
