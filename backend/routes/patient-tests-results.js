@@ -5,7 +5,9 @@ const patientTestsResultsModel = require('../models/patient-tests-results');
 const express = require("express");
 const router = express.Router();
 
-router.get("", async (req, res) => {
+router.get("/:uuid", async (req, res) => {
+    const testResults = await patientTestsResultsModel.findPatientTestsResultByUUID(req.params.uuid);
+    res.send(testResults);
 });
 
 router.post("", async (req, res) => {
