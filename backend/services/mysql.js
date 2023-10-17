@@ -1,6 +1,6 @@
 const config = require('../config/default.json');
 let mysql2 = require('mysql2');
-let pool = mysql2.createPool(config.mysql);
+let pool = mysql2.createPool(config.MYSQL);
 
 function checkConnection() {
     pool.getConnection((err, connection) => {

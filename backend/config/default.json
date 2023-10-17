@@ -1,10 +1,11 @@
 {
-  "jwtPrivateKey": "unsecureKey",
-  "mysql": {
+  "JWT_PRIVATE_KEY": "unsecureKey",
+  "MYSQL": {
     "host": "localhost",
     "user": "root",
     "password": "root",
     "database": "lab_db"
   },
-  "port": "4000"
+  "PORT": "4000",
+  "DEBUG": false
 }
