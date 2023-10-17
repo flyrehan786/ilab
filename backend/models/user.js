@@ -143,7 +143,7 @@ function generateAuthToken(user) {
       username: user.username,
       isAdmin: user.is_admin
     },
-    config.jwtPrivateKey, {
+    config.JWT_PRIVATE_KEY, {
       expiresIn: 3000
     }
   );
