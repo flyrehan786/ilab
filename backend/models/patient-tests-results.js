@@ -97,6 +97,24 @@ async function updatePatientTestsResult(id, updatedPatientTestsResult) {
             })
     })
 }
+async function updatePatientTestsResultByTestIdAndUUID(id, updatedPatientTestsResult) {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests_results SET result_value=?, remarks=?, updated_at=Now() WHERE patient_tests_uuid=? AND test_id=?;',
+            [
+                updatedPatientTestsResult.result_value,
+                updatedPatientTestsResult.remarks,
+                updatedPatientTestsResult.patient_tests_uuid,
+                updatedPatientTestsResult.test_id,
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests_results WHERE id = ${id};`, (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result[0]);
+                    else resolve(null);
+                })
+            })
+    })
+}
 
 async function deletePatientTestsResult(id) {
     return new Promise((resolve, reject) => {
@@ -114,4 +132,5 @@ exports.findPatientTestsResultByUUID = findPatientTestsResultByUUID;
 exports.savePatientTestResult = savePatientTestResult;
 exports.findAll = findAll;
 exports.updatePatientTestsResult = updatePatientTestsResult;
+exports.updatePatientTestsResultByTestIdAndUUID = updatePatientTestsResultByTestIdAndUUID;
 exports.deletePatientTestsResult = deletePatientTestsResult;
