@@ -8,5 +8,5 @@
   },
   "PORT": "4000",
   "DEBUG": false,
-  "CLUSTER_MODE": true
+  "CLUSTER_MODE": false
 }

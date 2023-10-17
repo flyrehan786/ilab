@@ -14,19 +14,10 @@ if (config.CLUSTER_MODE == true) {
         cluster.on('exit', (worker, code, signal) => {
             console.log(`Worker ${worker.process.pid} died`);
         });
-    } else {
-        const app = express();
-        app.use(cors());
-        app.use(express.json());
-        app.use('/', routes);
-        const port = process.env.PORT || 4000;
-        app.listen(port, () => {
-            console.log(`Worker ${process.pid} is listening on port ${port}`);
-            console.log(`Listening on port ${port}...`)
-            MYSQL.check_connection();
-        });
-    }
-} else {
+    } else init();
+} else init();
+
+function init() {
     const app = express();
     app.use(cors());
     app.use(express.json());
