@@ -1,12 +1,10 @@
 {
   "jwtPrivateKey": "unsecureKey",
-  "db": "mongodb://localhost/vidly",
   "mysql": {
     "host": "localhost",
     "user": "root",
     "password": "root",
     "database": "lab_db"
   },
-  "port": "3900",
-  "requiresAuth": false
+  "port": "3900"
 }
