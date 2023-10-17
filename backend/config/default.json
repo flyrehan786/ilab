@@ -7,5 +7,6 @@
     "database": "lab_db"
   },
   "PORT": "4000",
-  "DEBUG": false
+  "DEBUG": false,
+  "CLUSTER_MODE": true
 }
