@@ -25,9 +25,14 @@ router.get("", async (req, res) => {
       }
 });
 
+router.get("/:uuid", async (req, res) => {
+    const patientTests = await patientTestsModel.findPatientTestsByUUID(req.params.uuid);
+    res.send(patientTests);
+});
+
 router.post("", async (req, res) => {
     const uuid = uuidv4();
-    const testStatus = '0';
+    const testStatus = '0'; // pending
     // Request Body: 
     // {
     //     "patient_id": 1,
@@ -43,14 +48,15 @@ router.post("", async (req, res) => {
     // validate data.
     // Insert into Patient Tests.
     let patientTestsSaveResults = [];
-    req.body.selected_tests.forEach(async t => {
+    for (let p = 0; p < req.body.selected_tests.length; p++) {
+        const t = req.body.selected_tests[p];
         const patientTestSaveResult = await patientTestsModel.savePatientTests({
             uuid: uuid,
             test_id: t,
             status: testStatus
         });
         if (patientTestSaveResult) patientTestsSaveResults.push(patientTestSaveResult);
-    });
+    }
 
     // Insert into Patient Tests Remarks.
     const patientTestsRemarksSaveResult = await patientTestsRemarksModel.savePatientTestsRemarks({
