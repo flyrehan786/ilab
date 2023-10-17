@@ -100,4 +100,6 @@ router.post("", async (req, res) => {
     })
 });
 
+router.delete("/:uuid", async (req, res) => {})
+
 module.exports = router;
