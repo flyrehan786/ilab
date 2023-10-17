@@ -25,6 +25,11 @@ router.get("", async (req, res) => {
       }
 });
 
+router.get("/:uuid", async (req, res) => {
+    const patientTests = await patientTestsModel.findPatientTestsByUUID(req.params.uuid);
+    res.send(patientTests);
+});
+
 router.post("", async (req, res) => {
     const uuid = uuidv4();
     const testStatus = '0';
