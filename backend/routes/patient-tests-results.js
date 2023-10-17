@@ -9,7 +9,6 @@ router.get("", async (req, res) => {
 });
 
 router.post("", async (req, res) => {
-    // Request Data.
     req.body = {
         patient_test_uuid: '1697201760058',
         test_results: [
@@ -35,7 +34,6 @@ router.post("", async (req, res) => {
             },
         ]
     }
-    // Loop through Test Results from request data.
     const uuid = req.body.patient_test_uuid;
     const testResults = req.body.test_results;
     let queryResults = { patient_test_uuid: uuid, updateQueryResult: [] };
