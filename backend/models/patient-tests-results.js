@@ -97,6 +97,7 @@ async function updatePatientTestsResult(id, updatedPatientTestsResult) {
             })
     })
 }
+
 async function updatePatientTestsResultByTestIdAndUUID(id, updatedPatientTestsResult) {
     return new Promise((resolve, reject) => {
         db.execute('Update patient_tests_results SET result_value=?, remarks=?, updated_at=Now() WHERE patient_tests_uuid=? AND test_id=?;',
