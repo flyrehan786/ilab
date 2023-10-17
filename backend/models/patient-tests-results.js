@@ -108,7 +108,6 @@ async function deletePatientTestsResult(id) {
     })
 }
 
-
 exports.validate = validatePatientTestResult;
 exports.findPatientTestsResult = findPatientTestsResult;
 exports.findPatientTestsResultByUUID = findPatientTestsResultByUUID;
