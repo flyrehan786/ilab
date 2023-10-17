@@ -6,5 +6,5 @@
     "password": "root",
     "database": "lab_db"
   },
-  "port": "3900"
+  "port": "4000"
 }
