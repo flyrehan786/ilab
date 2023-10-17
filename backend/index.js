@@ -15,4 +15,14 @@ const server = app.listen(port, () => {
     MYSQL.check_connection();
 });
 
+// const ZERO = require('./services/redis/database/redis-db');
+// ZERO.worker.
+// ZERO.worker.keys().then(keys => {
+//     console.log(keys);
+// })
+// ZERO.worker.save('key-001', { name: 'John', details: '...' });
+// ZERO.worker.keys().then(keys => {
+//     console.log(keys);
+// })
+
 module.exports = server;
