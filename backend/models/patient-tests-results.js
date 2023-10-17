@@ -35,11 +35,12 @@ async function findAll() {
 
 async function savePatientTestResult(newPatientTest) {
     return new Promise((resolve, reject) => {
-        db.execute(`INSERT INTO patient_tests_results VALUES(default, ?, ?, ?, NOW(), NOW())`,
+        db.execute(`INSERT INTO patient_tests_results VALUES(default, ?, ?, ?, ?, NOW(), NOW())`,
             [
-                newPatientTest.uuid,
+                newPatientTest.patient_tests_uuid,
                 newPatientTest.test_id,
-                newPatientTest.status,
+                newPatientTest.result_value,
+                newPatientTest.remarks,
             ], (err, result) => {
                 if (err) reject(err);
                 db.execute(`SELECT id FROM patient_tests_results WHERE id = ?;`,[ result.insertId ], (err, result) => {
@@ -66,7 +67,7 @@ async function findPatientTestsResult(id) {
 
 async function findPatientTestsResultByUUID(uuid) {
     return new Promise((resolve, reject) => {
-        db.execute(`SELECT * FROM patient_tests_results WHERE uuid=?`,
+        db.execute(`SELECT * FROM patient_tests_results WHERE patient_tests_uuid=?`,
             [
                 uuid
             ], (err, result) => {
@@ -77,13 +78,14 @@ async function findPatientTestsResultByUUID(uuid) {
     })
 }
 
-async function updatePatientTestsResult(id, updatedPatientTests) {
+async function updatePatientTestsResult(id, updatedPatientTestsResult) {
     return new Promise((resolve, reject) => {
-        db.execute('Update patient_tests_results SET uuid=?,test_id=?, status=?, updated_at=Now() WHERE id=?;',
+        db.execute('Update patient_tests_results SET patient_tests_uuid=?,test_id=?, result_value=?, remarks=?, updated_at=Now() WHERE id=?;',
             [
-                updatedPatientTests.uuid,
-                updatedPatientTests.test_id,
-                updatedPatientTests.status,
+                updatedPatientTestsResult.patient_tests_uuid,
+                updatedPatientTestsResult.test_id,
+                updatedPatientTestsResult.result_value,
+                updatedPatientTestsResult.remarks,
                 id
             ], (err, result) => {
                 if (err) reject(err);
