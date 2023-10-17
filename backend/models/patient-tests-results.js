@@ -43,7 +43,7 @@ async function savePatientTestResult(newPatientTest) {
                 newPatientTest.remarks,
             ], (err, result) => {
                 if (err) reject(err);
-                db.execute(`SELECT id FROM patient_tests_results WHERE id = ?;`,[ result.insertId ], (err, result) => {
+                db.execute(`SELECT id FROM patient_tests_results WHERE id = ?;`, [result.insertId], (err, result) => {
                     if (err) reject(err);
                     if (result.length > 0) resolve(result[0].id);
                     else resolve(null);
@@ -78,6 +78,20 @@ async function findPatientTestsResultByUUID(uuid) {
     })
 }
 
+async function findPatientTestsResultByTestIdAndUUID(uuid, testId) {
+    return new Promise((resolve, reject) => {
+        db.execute(`SELECT * FROM patient_tests_results WHERE patient_tests_uuid=? AND test_id=?`,
+            [
+                uuid,
+                testId
+            ], (err, result) => {
+                if (err) reject(err);
+                if (result.length > 0) resolve(result);
+                else resolve(null);
+            });
+    })
+}
+
 async function updatePatientTestsResult(id, updatedPatientTestsResult) {
     return new Promise((resolve, reject) => {
         db.execute('Update patient_tests_results SET patient_tests_uuid=?,test_id=?, result_value=?, remarks=?, updated_at=Now() WHERE id=?;',
@@ -98,6 +112,25 @@ async function updatePatientTestsResult(id, updatedPatientTestsResult) {
     })
 }
 
+async function updatePatientTestsResultByTestIdAndUUID(updatedPatientTestsResult) {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests_results SET result_value=?, remarks=?, updated_at=Now() WHERE patient_tests_uuid=? AND test_id=?;',
+            [
+                updatedPatientTestsResult.result_value,
+                updatedPatientTestsResult.remarks,
+                updatedPatientTestsResult.patient_tests_uuid,
+                updatedPatientTestsResult.test_id,
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests_results WHERE patient_tests_uuid=? AND test_id=?;`, [updatedPatientTestsResult.patient_tests_uuid, updatedPatientTestsResult.test_id], (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result);
+                    else resolve(null);
+                })
+            })
+    })
+}
+
 async function deletePatientTestsResult(id) {
     return new Promise((resolve, reject) => {
         db.execute(`DELETE FROM patient_tests_results WHERE id=?`, [id], (err, result) => {
@@ -111,7 +144,9 @@ async function deletePatientTestsResult(id) {
 exports.validate = validatePatientTestResult;
 exports.findPatientTestsResult = findPatientTestsResult;
 exports.findPatientTestsResultByUUID = findPatientTestsResultByUUID;
+exports.findPatientTestsResultByTestIdAndUUID = findPatientTestsResultByTestIdAndUUID;
 exports.savePatientTestResult = savePatientTestResult;
 exports.findAll = findAll;
 exports.updatePatientTestsResult = updatePatientTestsResult;
+exports.updatePatientTestsResultByTestIdAndUUID = updatePatientTestsResultByTestIdAndUUID;
 exports.deletePatientTestsResult = deletePatientTestsResult;
