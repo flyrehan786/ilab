@@ -23,7 +23,7 @@ const AppRoutes = () => {
   };
 
   return (
-    <Suspense fallback={<Spin size='large' />}>
+    <Suspense fallback={<Spin size='large' style={{ position: 'absolute', marginTop: 'auto' }} />}>
       <Routes>
         {all_routes.map((route) => (
           <>

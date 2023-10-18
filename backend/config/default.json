@@ -3,10 +3,10 @@
   "MYSQL": {
     "host": "localhost",
     "user": "root",
-    "password": "root",
+    "password": "javascript22750",
     "database": "lab_db"
   },
   "PORT": "4000",
   "DEBUG": false,
-  "CLUSTER_MODE": false
+  "CLUSTER_MODE": true
 }

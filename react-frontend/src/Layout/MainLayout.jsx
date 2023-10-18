@@ -21,11 +21,16 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(<Link to={'#'}>Dashboard</Link>, '1', <DashboardIcon />),
-  getItem(<Link to={'#'}>Patients</Link>, '2', <UserOutlined />),
-  getItem(<Link to={'#'}>Doctors</Link>, '3', <UserOutlined />),
-  getItem(<Link to={'#'}>Test</Link>, '4', <TestIcon />),
-  getItem(<Link to={'#'}>Manage Users</Link>, '5', <ManageUserIcon />),
+  getItem(<Link to={'/'}>Dashboard</Link>, '1', <DashboardIcon />),
+  getItem(<Link to={'/patients'}>Manage Patients</Link>, '2', <UserOutlined />),
+  getItem(<Link to={'/doctors'}>Manage Doctors</Link>, '3', <UserOutlined />),
+  getItem(<Link to={'/tests'}>Manage Test</Link>, '4', <TestIcon />),
+  getItem(<Link to={'/users'}>Manage Patient Tests</Link>, '5', <ManageUserIcon />),
+  getItem(<Link to={'/users'}>Manage Patient Tests Results</Link>, '6', <ManageUserIcon />),
+  getItem(<Link to={'/users'}>Patient Tests Reports</Link>, '7', <ManageUserIcon />),
+  getItem(<Link to={'/users'}>Statistics</Link>, '9', <ManageUserIcon />),
+  getItem(<Link to={'/users'}>Manage Users</Link>, '7', <ManageUserIcon />),
+  getItem(<Link to={'/users'}>Account Settings</Link>, '8', <ManageUserIcon />),
 ];
 
 const MainLayout = ({ children }) => {
