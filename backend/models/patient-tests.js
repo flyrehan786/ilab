@@ -102,7 +102,7 @@ async function deletePatientTests(id) {
     })
 }
 
-async function patientTestCompleted() {
+async function patientTestCompleted(id) {
     return new Promise((resolve, reject) => {
         db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE id=?;',
             [
@@ -118,7 +118,7 @@ async function patientTestCompleted() {
             })
     })
 }
-async function patientTestPending() {
+async function patientTestPending(id) {
     return new Promise((resolve, reject) => {
         db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE id=?;',
             [
@@ -135,6 +135,38 @@ async function patientTestPending() {
     })
 }
 
+async function patientTestCompletedByUUID(uuid) {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE uuid=?;',
+            [
+                1,
+                uuid
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests WHERE uuid = ?`, [uuid], (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result);
+                    else resolve(null);
+                })
+            })
+    })
+}
+async function patientTestPendingByUUID(uuid) {
+    return new Promise((resolve, reject) => {
+        db.execute('Update patient_tests SET status=?, updated_at=Now() WHERE uuid=?;',
+            [
+                0,
+                uuid
+            ], (err, result) => {
+                if (err) reject(err);
+                db.execute(`SELECT * FROM patient_tests WHERE uuid = ?;`, [uuid], (err, result) => {
+                    if (err) reject(err);
+                    if (result.length > 0) resolve(result);
+                    else resolve(null);
+                })
+            })
+    })
+}
 
 exports.validate = validatePatientTest;
 exports.findPatientTests = findPatientTests;
@@ -144,4 +176,6 @@ exports.findAll = findAll;
 exports.updatePatientTests = updatePatientTests;
 exports.deletePatientTests = deletePatientTests;
 exports.patientTestCompleted = patientTestCompleted;
+exports.patientTestCompletedByUUID = patientTestCompletedByUUID;
 exports.patientTestPending = patientTestPending;
+exports.patientTestPendingByUUID = patientTestPendingByUUID;

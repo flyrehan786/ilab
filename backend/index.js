@@ -1,31 +1,32 @@
-const { check_connection } = require('./services/mysql');
-const express = require("express");
-
-const app = express();
+const express = require('express');
+const routes = require('./routes-config/routes');
 const cors = require('cors');
+const config = require('./config/default.json');
+const MYSQL = require('./services/mysql');
 
-app.use(cors());
-app.use(express.json());
+if (config.CLUSTER_MODE == true) {
+    const cluster = require('cluster');
+    const numCPUs = require('os').cpus().length;
+    if (cluster.isMaster) {
+        console.log(`Master ${process.pid} is running`);
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork();
+        }
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`Worker ${worker.process.pid} died`);
+        });
+    } else init();
+} else init();
 
-const usersRoutes = require('./routes/users');
-const authRoute = require('./routes/auth');
-const patientsRoutes = require('./routes/patients');
-const doctorsRoutes = require('./routes/doctors');
-const testsRoutes = require('./routes/tests');
-const patientTestsRoutes = require('./routes/patient-tests');
-
-app.use('/api/auth', authRoute);
-app.use('/api/users', usersRoutes);
-app.use('/api/patients', patientsRoutes);
-app.use('/api/doctors', doctorsRoutes);
-app.use('/api/tests', testsRoutes);
-app.use('/api/tests', testsRoutes);
-app.use('/api/patient-tests', patientTestsRoutes);
-
-const port = process.env.PORT || 4000;
-const server = app.listen(port, () => {
-    console.log(`Listening on port ${port}...`)
-    check_connection();
-});
-
-module.exports = server;
+function init() {
+    const app = express();
+    app.use(cors());
+    app.use(express.json());
+    app.use('/', routes);
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => {
+        console.log(`Worker ${process.pid} is listening on port ${port}`);
+        console.log(`Listening on port ${port}...`)
+        MYSQL.check_connection();
+    });
+}
