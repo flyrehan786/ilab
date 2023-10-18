@@ -5,6 +5,24 @@ const patientTestsResultsModel = require('../models/patient-tests-results');
 const express = require("express");
 const router = express.Router();
 
+router.get("", async (req, res) => {
+    try {
+        const patientTestsResults = await patientTestsResultsModel.findAll();
+        const formattedPatientTestsResults = patientTestsResults.map(test => {
+          return {
+            ...test,
+            created_at: new Date(test.created_at).toLocaleString(),
+            updated_at: new Date(test.updated_at).toLocaleString(),
+          };
+        });
+        res.send(formattedPatientTests);
+      } catch (error) {
+        console.error('Error fetching patient tests:', error);
+        res.status(500).send('Internal Server Error');
+      }
+});
+
+
 router.get("/:uuid", async (req, res) => {
     const testResults = await patientTestsResultsModel.findPatientTestsResultByUUID(req.params.uuid);
     res.send(testResults);
