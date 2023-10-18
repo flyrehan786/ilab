@@ -15,7 +15,7 @@ router.get("", async (req, res) => {
             updated_at: new Date(test.updated_at).toLocaleString(),
           };
         });
-        res.send(formattedPatientTests);
+        res.send(formattedPatientTestsResults);
       } catch (error) {
         console.error('Error fetching patient tests:', error);
         res.status(500).send('Internal Server Error');
