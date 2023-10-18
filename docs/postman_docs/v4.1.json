@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "c49357ce-1ff9-4b3d-9af4-aa823772b84b",
+		"name": "lab-backend-endpoint",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26690176"
+	},
+	"item": [
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "Get All Patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/patients"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Haroon\", \r\n    \"date_of_birth\": \"2020/12/12\", \r\n    \"gender\": \"0\", \r\n    \"contact_number\": \"03401234567\", \r\n    \"email_address\": \"haroon.hayat@gmail.com\", \r\n    \"address\":\"Ghalegay swat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/patients"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Patient By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/patients/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:4000/api/patients/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patient By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Hamza+\",\r\n    \"date_of_birth\": \"2020/12/12\",\r\n    \"gender\": \"1\",\r\n    \"contact_number\": \"0340143567\",\r\n    \"email_address\": \"Rehan.hayat@gmail.com\",\r\n    \"address\": \"Ghalegay swat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/patients/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImZpcnN0X25hbWUiOiJIYXJvb24iLCJsYXN0X25hbWUiOiJIYXlhdCIsInVzZXJuYW1lIjoicmVoYW5mbHkiLCJpc0FkbWluIjoiMSIsImlhdCI6MTY5Njg3Njc1OCwiZXhwIjoxNjk2ODc5NzU4fQ.8DOZvTykDiRlszkIY_Mk0RDsTCJqpqjI2H10_WtVLho"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"11111\",\r\n    \"last_name\": \"Hayat\",\r\n    \"email\": \"ahmad@gmail.com\",\r\n    \"username\": \"ahmad\",\r\n    \"password\": \"Ahmad@123\",\r\n    \"is_admin\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/users/register"
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"username\": \"rehanfly\", \"password\": \"Rehan@123\" }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/auth"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/users/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "Get All Doctors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/doctors"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Haroon\",\r\n    \"gender\": \"1\",\r\n    \"contact_number\": \"5345345345\",\r\n    \"email_address\": \"haroon.hayat@gmail.com\",\r\n    \"address\": \"Barikot swat\",\r\n    \"specialization\": \"Noise\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/doctors"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Doctor By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/doctors/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Doctor By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:4000/api/doctors/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Doctor By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"Haroon hayat\",\r\n    \"gender\": \"0\",\r\n    \"contact_number\": \"43443434343\",\r\n    \"email_address\": \"example@gmail.com\",\r\n    \"address\": \"Malakand\",\r\n    \"specialization\": \"Eye\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/doctors/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Get All Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/tests"
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Test",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"hlc\",\r\n    \"unit\": \"mg/c\",\r\n    \"male_reference_rage\": \"50-180\",\r\n    \"female_reference_rage\": \"130-170\",\r\n    \"price\": \"1500\",\r\n    \"description\" : \"nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/tests"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/tests/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:4000/api/tests/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Test By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"fbc++\",\r\n    \"unit\": \"mg/c\",\r\n    \"male_reference_range\": \"20-120\",\r\n    \"female_reference_range\": \"100-150\",\r\n    \"price\": \"1200\",\r\n    \"description\" : \"Somthing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/tests/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient_Tests",
+			"item": [
+				{
+					"name": "Add New Patient Tests",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"patient_id\": 1,\r\n        \"doctor_id\": 1,\r\n        \"selected_tests\": [1, 2, 3, 4],\r\n        \"total_amount\": 10000,\r\n        \"paid_amount\": 10000,\r\n        \"discount_amount\": 2000,\r\n        \"balance_amount\": 8000,\r\n        \"remarks\": \"...\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4000/api/patient-tests"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Patient Tests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/patient-tests"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Patient Test By UUID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:4000/api/patient-tests/7e59731b-b41e-4c0e-a95a-cf59b88bad92"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient_Tests_Results",
+			"item": []
+		},
+		{
+			"name": "Reports",
+			"item": []
+		},
+		{
+			"name": "Patient_Authentication",
+			"item": []
+		}
+	]
+}
