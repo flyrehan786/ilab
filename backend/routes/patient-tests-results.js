@@ -29,31 +29,31 @@ router.get("/:uuid", async (req, res) => {
 });
 
 router.post("", async (req, res) => {
-    req.body = {
-        patient_test_uuid: '1697201760058',
-        test_results: [
-            {
-                test_id: 1,
-                result_value: 'adadasd',
-                remarks: '...'
-            },
-            {
-                test_id: 2,
-                result_value: 'hjgj',
-                remarks: '...'
-            },
-            {
-                test_id: 3,
-                result_value: 'hgjjdasd',
-                remarks: '...'
-            },
-            {
-                test_id: 4,
-                result_value: 'kjtvcd',
-                remarks: '...'
-            },
-        ]
-    }
+    // req.body = {
+    //     patient_test_uuid: '1697201760058',
+    //     test_results: [
+    //         {
+    //             test_id: 1,
+    //             result_value: 'adadasd',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 2,
+    //             result_value: 'hjgj',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 3,
+    //             result_value: 'hgjjdasd',
+    //             remarks: '...'
+    //         },
+    //         {
+    //             test_id: 4,
+    //             result_value: 'kjtvcd',
+    //             remarks: '...'
+    //         },
+    //     ]
+    // }
     const uuid = req.body.patient_test_uuid;
     const testResults = req.body.test_results;
     let queryResults = { patient_test_uuid: uuid, updateQueryResult: [] };
