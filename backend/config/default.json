@@ -3,7 +3,7 @@
   "MYSQL": {
     "host": "localhost",
     "user": "root",
-    "password": "javascript22750",
+    "password": "root",
     "database": "lab_db"
   },
   "PORT": "4000",
