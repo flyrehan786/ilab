@@ -14,7 +14,6 @@ router.use('/api/users', usersRoutes);
 router.use('/api/patients', patientsRoutes);
 router.use('/api/doctors', doctorsRoutes);
 router.use('/api/tests', testsRoutes);
-router.use('/api/tests', testsRoutes);
 router.use('/api/patient-tests', patientTestsRoutes);
 router.use('/api/patient-tests-results', patientTestsResultsRoutes);
 
